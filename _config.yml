@@ -1,3 +1,7 @@
 theme: jekyll-theme-minimal
 title: test
 description: seeing how this works
+exclude:
+  - README.md
+  - .github
+  - .gitignore
