@@ -35,6 +35,15 @@ body {
   overflow-x: hidden;
 }
 
+main {
+  padding-top: var(--nav-h);
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
+}
+
 /* Grain overlay */
 body::before {
   content: '';
