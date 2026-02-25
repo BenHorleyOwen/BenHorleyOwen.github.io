@@ -1,10 +1,8 @@
 ---
 layout: default
+title: Ben Horley-Owen
+description: Security Engineer | DevSecOps Engineer | Infrastructure Security | Security Operations Engineer | DFIR Analyst
 ---
-
-# {{ site.data.info.name }}
-
-{{ site.data.info.tagline }}
 
 ## About
 
