@@ -1,7 +1,34 @@
-theme: jekyll-theme-minimal
-title: test
-description: seeing how this works
+title: "Ben Horley-Owen"
+description: "Software Engineer & Developer"
+baseurl: ""
+url: "https://github.com/BenHorleyOwen"
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Exclude from build
 exclude:
+  - Gemfile
+  - Gemfile.lock
   - README.md
-  - .github
-  - .gitignore
+  - node_modules
+
+# Profile data directory
+data_dir: profile
