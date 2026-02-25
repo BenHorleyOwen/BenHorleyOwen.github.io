@@ -1,0 +1,39 @@
+# profile/projects.yml
+# Add your projects here. skills[] must match skill names in skills.yml.
+
+projects:
+  - name: "Distributed Task Queue"
+    slug: "distributed-task-queue"
+    description: "A high-throughput distributed task queue built with Python and Redis, supporting priority queues, retries, and real-time monitoring dashboards."
+    repo: "https://github.com/yourusername/distributed-task-queue"
+    demo: ""
+    featured: true
+    skills: [Python, Redis, Docker, FastAPI, PostgreSQL, REST APIs]
+    tags: [backend, open-source]
+
+  - name: "DataPipeline CLI"
+    slug: "datapipeline-cli"
+    description: "Command-line tool for building and orchestrating ETL pipelines with YAML config, support for dbt models, and Spark job submission."
+    repo: "https://github.com/yourusername/datapipeline-cli"
+    demo: ""
+    featured: true
+    skills: [Python, Apache Spark, dbt, SQL, Docker, AWS]
+    tags: [data-engineering, cli]
+
+  - name: "Portfolio Site"
+    slug: "portfolio-site"
+    description: "This portfolio, built with Jekyll, GitHub Actions CI/CD, and a custom animated skills bubble cloud."
+    repo: "https://github.com/yourusername/yourusername.github.io"
+    demo: "https://yourusername.github.io"
+    featured: false
+    skills: [JavaScript, GitHub Actions, Git]
+    tags: [frontend, devops]
+
+  - name: "ML Inference Server"
+    slug: "ml-inference-server"
+    description: "Production-grade model serving API with FastAPI, batching support, ONNX runtime, and Prometheus metrics."
+    repo: "https://github.com/yourusername/ml-inference-server"
+    demo: ""
+    featured: true
+    skills: [Python, FastAPI, PyTorch, Docker, Kubernetes, REST APIs]
+    tags: [ml, backend]

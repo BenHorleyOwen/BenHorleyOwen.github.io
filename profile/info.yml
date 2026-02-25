@@ -1,0 +1,16 @@
+# profile/info.yml
+
+name: "Your Name"
+title: "Software Engineer"
+tagline: "I build things that scale."
+bio: >
+  Engineer with a focus on backend systems, data infrastructure, and developer tooling.
+  I care about clean APIs, observable systems, and code that other people can actually maintain.
+
+location: "London, UK"
+email: "you@example.com"
+github: "yourusername"
+linkedin: "yourlinkedin"
+resume: "/assets/resume.pdf"
+
+avatar: "/assets/avatar.jpg"

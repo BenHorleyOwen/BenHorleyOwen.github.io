@@ -1,0 +1,137 @@
+# profile/skills.yml
+# Each skill has a name, category, and list of job_titles it's relevant for.
+# job_titles acts as a filter key — skills are highlighted when the user selects a role.
+
+skills:
+  - name: Python
+    category: language
+    level: expert
+    job_titles: [backend, data-engineer, ml-engineer, full-stack]
+
+  - name: JavaScript
+    category: language
+    level: expert
+    job_titles: [frontend, full-stack, backend]
+
+  - name: TypeScript
+    category: language
+    level: advanced
+    job_titles: [frontend, full-stack, backend]
+
+  - name: Rust
+    category: language
+    level: intermediate
+    job_titles: [backend, systems]
+
+  - name: SQL
+    category: language
+    level: expert
+    job_titles: [backend, data-engineer, full-stack]
+
+  - name: React
+    category: framework
+    level: expert
+    job_titles: [frontend, full-stack]
+
+  - name: Next.js
+    category: framework
+    level: advanced
+    job_titles: [frontend, full-stack]
+
+  - name: FastAPI
+    category: framework
+    level: advanced
+    job_titles: [backend, full-stack]
+
+  - name: Django
+    category: framework
+    level: advanced
+    job_titles: [backend, full-stack]
+
+  - name: Docker
+    category: devops
+    level: advanced
+    job_titles: [backend, devops, full-stack, ml-engineer]
+
+  - name: Kubernetes
+    category: devops
+    level: intermediate
+    job_titles: [devops, backend]
+
+  - name: GitHub Actions
+    category: devops
+    level: advanced
+    job_titles: [devops, backend, full-stack]
+
+  - name: AWS
+    category: cloud
+    level: advanced
+    job_titles: [backend, devops, full-stack, ml-engineer]
+
+  - name: PostgreSQL
+    category: database
+    level: expert
+    job_titles: [backend, full-stack, data-engineer]
+
+  - name: Redis
+    category: database
+    level: advanced
+    job_titles: [backend, full-stack]
+
+  - name: PyTorch
+    category: ml
+    level: intermediate
+    job_titles: [ml-engineer]
+
+  - name: scikit-learn
+    category: ml
+    level: advanced
+    job_titles: [ml-engineer, data-engineer]
+
+  - name: Apache Spark
+    category: data
+    level: intermediate
+    job_titles: [data-engineer]
+
+  - name: dbt
+    category: data
+    level: intermediate
+    job_titles: [data-engineer]
+
+  - name: REST APIs
+    category: pattern
+    level: expert
+    job_titles: [backend, full-stack, frontend]
+
+  - name: GraphQL
+    category: pattern
+    level: advanced
+    job_titles: [backend, full-stack, frontend]
+
+  - name: Git
+    category: tool
+    level: expert
+    job_titles: [backend, frontend, full-stack, devops, ml-engineer, data-engineer, systems]
+
+job_titles:
+  - id: frontend
+    label: Frontend Engineer
+    color: "#FF6B6B"
+  - id: backend
+    label: Backend Engineer
+    color: "#4ECDC4"
+  - id: full-stack
+    label: Full-Stack Engineer
+    color: "#A8E6CF"
+  - id: devops
+    label: DevOps Engineer
+    color: "#FFD93D"
+  - id: ml-engineer
+    label: ML Engineer
+    color: "#C77DFF"
+  - id: data-engineer
+    label: Data Engineer
+    color: "#FF9A3C"
+  - id: systems
+    label: Systems Engineer
+    color: "#74B9FF"
