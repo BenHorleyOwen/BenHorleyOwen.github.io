@@ -1,5 +1,5 @@
 title: "Ben Horley-Owen"
-description: "Software Engineer & Developer"
+description: "Security Engineer | DevSecOps Engineer | Infrastructure Security | Security Operations Engineer | DFIR Analyst"
 baseurl: ""
 url: "https://github.com/BenHorleyOwen"
 
@@ -30,5 +30,3 @@ exclude:
   - README.md
   - node_modules
 
-# Profile data directory
-data_dir: profile

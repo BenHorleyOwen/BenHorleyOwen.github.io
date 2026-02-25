@@ -14,8 +14,7 @@
   <nav class="site-nav">
     <a href="{{ '/' | relative_url }}" class="nav-logo">{{ site.data.info.name | split: ' ' | first }}</a>
     <div class="nav-links">
-      <a href="{{ '/#skills' | relative_url }}">Skills</a>
-      <a href="{{ '/#projects' | relative_url }}">Projects</a>
+      <a href="{{ site.data.info.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
       <a href="{{ site.data.info.github | prepend: 'https://github.com/' }}" target="_blank" rel="noopener">GitHub</a>
     </div>
   </nav>

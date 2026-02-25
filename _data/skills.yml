@@ -1,4 +1,4 @@
-# profile/skills.yml
+# _data/skills.yml
 # Each skill has a name, category, and list of job_titles it's relevant for.
 # job_titles acts as a filter key — skills are highlighted when the user selects a role.
 

@@ -3,6 +3,11 @@
 ### Automated project information
 This repo is pushed to from BenHorleyOwen/Automated-portfolio-deployment with project information, which will then be mounted onto the page
 
+### Design philosophy
+- Static portfolio webpage built by jekyll and hosted on github pages
+- page displays portfolio information which is pushed from my notes
+- the page holds a skills "bubble cloud" section as well as my relavent job titles, the skills can be filtered by the titles and highlight and raise themselves up the page
+
 ### Local development:
 I used a docker container to host the local development environment and stage the changes
 This would have been easier if I had simply just installed jekyll and bundler etc to my system, however in a fashion typical to myself I found a loose thread of curiosity in my mind and had to pull on it and see where it went. Right back to containers it seems. However this has been an interesting exercise in advancing my knowledge deeper.
