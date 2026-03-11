@@ -1,6 +1,6 @@
 /* ============================================================
    PORTFOLIO — Dark editorial aesthetic
-   Fonts: Syne (display) + Space Mono (code/body)
+   Fonts: Syne (display) + Lora (body) + Space Mono (code)
    ============================================================ */
 
 :root {
@@ -8,13 +8,14 @@
   --surface: #111118;
   --surface2: #18181f;
   --border: #2a2a35;
-  --text: #e8e8f0;
+  --text: #B2ABCA;
   --text-dim: #666680;
   --text-muted: #3a3a50;
   --accent: #e8f060;       /* electric lime */
   --accent2: #60a0f0;      /* cool blue */
 
   --font-display: 'Syne', sans-serif;
+  --font-body: 'Lora', serif;
   --font-mono: 'Space Mono', monospace;
 
   --nav-h: 64px;
@@ -28,7 +29,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.7;
   min-height: 100vh;
@@ -39,8 +40,8 @@ main {
   padding-top: var(--nav-h);
   max-width: var(--max-w);
   margin: 0 auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   padding-bottom: 4rem;
 }
 
