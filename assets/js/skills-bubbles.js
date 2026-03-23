@@ -223,7 +223,7 @@ const SkillsBubbles = (() => {
 
   function physics() {
     bubbles.forEach(b => {
-      // Mouse repulsion
+/*       // Mouse repulsion
       const dx = b.x - mouse.x, dy = b.y - mouse.y;
       const d2 = dx*dx + dy*dy;
       b.hovered = d2 < (b.r + 20) * (b.r + 20);
@@ -233,7 +233,7 @@ const SkillsBubbles = (() => {
         const f = (1 - d / REPEL_RADIUS) * REPEL_FORCE;
         b.vx += (dx/d) * f;
         b.vy += (dy/d) * f;
-      }
+      } */
 
       // Drift + damping
       b.vx += randomBetween(-DRIFT_NOISE, DRIFT_NOISE);
