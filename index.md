@@ -25,6 +25,7 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
         name: {{ skill.name | jsonify }},
         level: {{ skill.level | jsonify }},
         category: {{ skill.category | jsonify }}
+        projects: {{ skill.projects | jsonify }}
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
