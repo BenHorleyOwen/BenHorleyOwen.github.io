@@ -24,8 +24,6 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 
 </div>
 
-<div id="sb-diag" style="background:#fef9c3;border:1px solid #ca8a04;padding:0.75rem;font-family:monospace;font-size:0.75rem;margin-top:0.5rem;border-radius:6px;"></div>
-
 <style>
 .spp-placeholder { color:#94a3b8; text-align:center; margin-top:2rem; line-height:1.6; }
 .spp-title       { margin:0 0 0.75rem; font-size:0.95rem; font-weight:700; color:#1e293b; }
@@ -39,14 +37,6 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 <script src="assets/js/skills-bubbles.js"></script>
 <script>
   const diag = document.getElementById("sb-diag");
-
-  const checks = {
-    "SkillsBubbles defined": typeof SkillsBubbles !== "undefined",
-    "#skills-canvas found":  !!document.getElementById("skills-canvas"),
-    ".skills-project-panel": !!document.querySelector(".skills-project-panel"),
-    ".skills-canvas-area":   !!document.querySelector(".skills-canvas-area"),
-  };
-
   const skills = [
     {% for skill in site.data.skills.skills %}
       {
@@ -56,14 +46,6 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ];
-
-  checks["skills array length"] = skills.length;
-  checks["first skill"] = skills.length ? JSON.stringify(skills[0]) : "none";
-
-  diag.innerHTML = Object.entries(checks)
-    .map(([k,v]) => `<div style="color:${v === false ? '#dc2626' : '#15803d'}">${k}: <b>${v}</b></div>`)
-    .join("");
-
   try {
     SkillsBubbles.init(skills);
     diag.innerHTML += `<div style="color:#15803d"><b>init() called successfully</b></div>`;
