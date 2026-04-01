@@ -1,8 +1,13 @@
-Cyber Security and Digital Forensics graduate with First-Class Honours and a broad foundation; combining security operations, forensic investigation, and software development. All of which I have a passion in pursuing, which presents itself in the many projects I find myself entangled in.
-Experienced with SIEM analysis, digital forensic tooling, containerised environments, and secure system design. 
-Demonstrated ability to apply security principles through hands-on labs, hackathons, and personal projects. Highly motivated with strong problem-solving and communication skills
+# Portfolio Github Pages
 
+### Automated project information
+This repo is pushed to from BenHorleyOwen/Automated-portfolio-deployment with project information, which will then be mounted onto the page
 
-The following section is automatically generated from my personal notes as a method of future proofing for whenever I make something new.
-## Presentable Projects:
+### Design philosophy
+- Static portfolio webpage built by jekyll and hosted on github pages
+- page displays portfolio information which is pushed from my notes
+- the page holds a skills "bubble cloud" section as well as my relavent job titles, the skills can be filtered by the titles and highlight and raise themselves up the page
 
+### Local development:
+I used a docker container to host the local development environment and stage the changes
+This would have been easier if I had simply just installed jekyll and bundler etc to my system, however in a fashion typical to myself I found a loose thread of curiosity in my mind and had to pull on it and see where it went. Right back to containers it seems. However this has been an interesting exercise in advancing my knowledge deeper.
