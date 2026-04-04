@@ -445,8 +445,29 @@ section {
   min-width: 200px;
   padding: 1rem;
   border-right: 1px solid var(--border-color, currentColor);
-  overflow: hidden;   /* no scrollbar — description is clamped to 5 lines */
+  overflow: hidden;
   font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+/* Transparent themed scrollbar for the description */
+.sb-desc {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128,128,128,0.2) transparent;
+}
+.sb-desc::-webkit-scrollbar {
+  width: 3px;
+}
+.sb-desc::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sb-desc::-webkit-scrollbar-thumb {
+  background: rgba(128,128,128,0.25);
+  border-radius: 2px;
+}
+.sb-desc::-webkit-scrollbar-thumb:hover {
+  background: rgba(128,128,128,0.45);
 }
 
 .project-links {

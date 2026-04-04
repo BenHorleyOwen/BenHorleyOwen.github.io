@@ -352,25 +352,34 @@ const SkillsBubbles = (() => {
 
   function physics() {
     blocks.forEach(b => {
-      const targetX = b.lifted ? (b.floatX !== undefined ? b.floatX : b.x) : b.groundX !== undefined ? b.groundX : b.x;
+      const targetX = b.lifted ? (b.floatX !== undefined ? b.floatX : b.x) : (b.groundX !== undefined ? b.groundX : b.x);
+      const targetY = b.lifted ? b.floatY : b.groundY;
 
-      // Horizontal spring toward target column
       if (!b.vx) b.vx = 0;
-      b.vx += (targetX - b.x) * 0.1;
+
+      const dx = targetX - b.x;
+      const dy = targetY - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Scale spring stiffness with distance — blocks farther away accelerate faster.
+      // Base k + bonus proportional to distance, capped so it doesn't overshoot.
+      const distScale = Math.min(1 + dist / 120, 4.0);
+
+      b.vx += dx * 0.1 * distScale;
       b.vx *= DAMPING;
-      if (Math.abs(b.vx) > MAX_SPEED) b.vx = Math.sign(b.vx) * MAX_SPEED;
+      if (Math.abs(b.vx) > MAX_SPEED * distScale) b.vx = Math.sign(b.vx) * MAX_SPEED * distScale;
       b.x += b.vx;
 
       if (b.lifted) {
-        b.vy += (b.floatY - b.y) * FLOAT_K;
+        b.vy += dy * FLOAT_K * distScale;
         b.vy += (Math.random() - 0.5) * DRIFT;
       } else {
         b.vy += GRAVITY;
-        b.vy += (b.groundY - b.y) * GROUND_K;
+        b.vy += dy * GROUND_K * distScale;
       }
 
       b.vy *= DAMPING;
-      if (Math.abs(b.vy) > MAX_SPEED) b.vy = Math.sign(b.vy) * MAX_SPEED;
+      if (Math.abs(b.vy) > MAX_SPEED * distScale) b.vy = Math.sign(b.vy) * MAX_SPEED * distScale;
       b.y += b.vy;
 
       // Ceiling / floor clamps
@@ -402,10 +411,6 @@ const SkillsBubbles = (() => {
   }
 
   function showPanelProject(p) {
-    const skillTags = (p.skills || []).length
-      ? p.skills.map(s => tag(s)).join(" ")
-      : `<span style="font-size:12px;color:var(--color-text-tertiary,#aaa);">none listed</span>`;
-
     const subs = (p.subprojects || []).length
       ? `<p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:8px 0 3px;">subprojects</p><div style="display:flex;flex-wrap:wrap;gap:4px;">${p.subprojects.map(s => tag(s, true)).join(" ")}</div>`
       : "";
@@ -415,9 +420,7 @@ const SkillsBubbles = (() => {
       : `<p style="font-size:14px;font-weight:600;color:inherit;margin:0 0 6px;">${p.name}</p>`;
     panel.innerHTML = `
       ${titleEl}
-      <p style="font-size:12px;color:inherit;opacity:0.7;line-height:1.6;margin:0 0 10px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;">${p.description || ""}</p>
-      <p style="font-size:11px;color:inherit;opacity:0.45;margin:0 0 4px;">skills</p>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;">${skillTags}</div>
+      <div class="sb-desc" style="font-size:12px;color:inherit;opacity:0.7;line-height:1.7;margin:0;overflow-y:auto;flex:1;">${p.description || ""}</div>
       ${subs}
     `;
   }

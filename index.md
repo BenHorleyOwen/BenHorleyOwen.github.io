@@ -6,13 +6,13 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 
 ## About
 
-{{ site.data.info.bio }}
+{{ site.data.info.bio }}<br>
+<br>
+**Location:** {{ site.data.info.location }}<br>
+**Email:** [{{ site.data.info.email }}](mailto:{{ site.data.info.email }})<br>
+<br>
 
-**Location:** {{ site.data.info.location }}
-**Email:** [{{ site.data.info.email }}](mailto:{{ site.data.info.email }})
-
-## Skills debug
-
+## Projects & Skills
 <div class="skills-canvas-wrapper">
   <div class="skills-project-panel"></div>
   <div class="skills-canvas-area">
@@ -58,9 +58,3 @@ canvas#skills-canvas {
   SkillsBubbles.init(yaml);
 </script>
 
-## Projects
-
-{% for project in site.data.projects.projects %}
-### [{{ project.name }}]({{ project.repo }})
-{{ project.description }}
-{% endfor %}
