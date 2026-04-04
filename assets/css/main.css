@@ -440,6 +440,15 @@ section {
   border-radius: 2px;
 }
 
+.skills-project-panel {
+  width: 200px;
+  min-width: 200px;
+  padding: 1rem;
+  border-right: 1px solid var(--border-color, currentColor);
+  overflow: hidden;   /* no scrollbar — description is clamped to 5 lines */
+  font-size: 0.85rem;
+}
+
 .project-links {
   display: flex;
   gap: 1rem;

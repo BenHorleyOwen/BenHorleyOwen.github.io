@@ -160,30 +160,37 @@ const SkillsBubbles = (() => {
       display:      "flex",
       flexWrap:     "wrap",
       gap:          "6px",
-      padding:      "10px 12px",
-      borderBottom: "0.5px solid var(--color-border-tertiary, #e0e0e0)",
-      background:   "var(--color-background-secondary, #f5f5f5)",
+      padding:      "8px 0",
+      background:   "transparent",
     });
   }
 
   function applyTabStyles(btn, active) {
     Object.assign(btn.style, {
-      fontSize:     "12px",
-      padding:      "4px 10px",
-      borderRadius: "6px",
-      border:       active
-        ? "0.5px solid var(--color-text-primary, #111)"
-        : "0.5px solid var(--color-border-secondary, #ccc)",
-      background:   active
-        ? "var(--color-text-primary, #111)"
-        : "var(--color-background-primary, #fff)",
-      color:        active
-        ? "var(--color-background-primary, #fff)"
-        : "var(--color-text-secondary, #555)",
+      fontSize:     "13px",
+      padding:      "4px 12px",
+      borderRadius: "4px",
+      border:       "1px solid currentColor",
+      background:   active ? "currentColor" : "transparent",
+      color:        "inherit",
+      opacity:      active ? "1" : "0.5",
       cursor:       "pointer",
-      fontFamily:   "var(--font-sans, sans-serif)",
+      fontFamily:   "inherit",
       lineHeight:   "1.4",
     });
+    // for active: text needs to contrast against the filled bg
+    // use a pseudo-trick: wrap label in a span with mix-blend-mode
+    if (active) {
+      btn.style.filter = "invert(0)";
+      btn.style.outline = "2px solid currentColor";
+      btn.style.outlineOffset = "1px";
+      btn.style.background = "transparent";
+      btn.style.fontWeight = "600";
+      btn.style.opacity = "1";
+    } else {
+      btn.style.outline = "none";
+      btn.style.fontWeight = "normal";
+    }
   }
 
 
@@ -192,9 +199,13 @@ const SkillsBubbles = (() => {
   // ══════════════════════════════════════════════════════════════════════════
 
   function resizeCanvas() {
-    const area    = canvas.parentElement;
-    canvas.width  = area.clientWidth  || 600;
-    canvas.height = Math.max(380, area.clientHeight || area.clientWidth * 0.6);
+    const area   = canvas.parentElement;
+    canvas.width = area.clientWidth || 600;
+    // Height is set to fill the wrapper; wrapper has explicit min-height in CSS.
+    // Read it from the wrapper, not the canvas area which may be 0 before paint.
+    const wrapper = canvas.closest(".skills-canvas-wrapper");
+    const wrapH   = wrapper ? wrapper.clientHeight : 0;
+    canvas.height = Math.max(380, wrapH || canvas.width * 0.55);
   }
 
 
@@ -205,40 +216,55 @@ const SkillsBubbles = (() => {
   // ══════════════════════════════════════════════════════════════════════════
 
   function spawnBlocks(skillsData) {
-    const cols     = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
-    const rows     = Math.ceil(skillsData.length / cols);
-    const floorY   = canvas.height - BLOCK_H / 2 - GAP;
-    const floatBand = canvas.height * 0.45; // how high lifted blocks can rise
+    const cols   = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
+    const floorY = canvas.height - BLOCK_H / 2 - GAP;
 
     blocks = skillsData.map((skill, i) => {
       const col     = i % cols;
       const row     = Math.floor(i / cols);
       const groundY = floorY - row * (BLOCK_H + GAP);
 
-      // Stagger float heights slightly so lifted blocks don't all pile up
-      const floatY  = GAP + BLOCK_H / 2 + floatBand * (0.2 + 0.6 * (col / Math.max(cols - 1, 1)));
-
+      const groundX = GAP + col * (BLOCK_W + GAP) + BLOCK_W / 2;
       return {
         name:     skill.name,
         projects: Array.isArray(skill.projects) ? skill.projects : [],
-        x:        GAP + col * (BLOCK_W + GAP) + BLOCK_W / 2,
+        x:        groundX,
         y:        groundY,
+        vx:       0,
         vy:       0,
+        groundX,
         groundY,
-        floatY,
+        floatX:   groundX,
+        floatY:   GAP + BLOCK_H / 2,
         lifted:   false,
       };
     });
   }
 
   function updateBlockTargets() {
+    // Assign float positions as a packed grid — both x and floatY are
+    // recalculated so lifted blocks never share a column or overlap.
+    const cols      = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
+    const topMargin = GAP + BLOCK_H / 2;
+
+    const lifted = blocks.filter(b => {
+      if (selectedProject) return b.projects.includes(selectedProject);
+      if (selectedSkill)   return b.name === selectedSkill;
+      return false;
+    });
+
+    lifted.forEach((b, i) => {
+      const col  = i % cols;
+      const row  = Math.floor(i / cols);
+      b.floatY   = topMargin + row * (BLOCK_H + GAP);
+      b.floatX   = GAP + col * (BLOCK_W + GAP) + BLOCK_W / 2;
+      b.lifted   = true;
+    });
+
     blocks.forEach(b => {
-      if (selectedProject) {
-        b.lifted = b.projects.includes(selectedProject);
-      } else if (selectedSkill) {
-        b.lifted = b.name === selectedSkill;
-      } else {
+      if (!lifted.includes(b)) {
         b.lifted = false;
+        b.floatX = b.x; // snap float target back to ground x
       }
     });
   }
@@ -258,17 +284,19 @@ const SkillsBubbles = (() => {
     const isActive     = b.lifted;
     const isDimmed     = hasSelection && !isActive;
 
-    const fill   = isActive  ? getCSSVar("--color-text-primary",         "#111111")
-                 : isDimmed  ? getCSSVar("--color-background-secondary",  "#f5f5f5")
-                 :             getCSSVar("--color-background-primary",    "#ffffff");
+    // Resolve from CSS variables so the component inherits the page theme.
+    // Fallbacks are neutral and readable on both light and dark backgrounds.
+    const bgPrimary   = getCSSVar("--color-background-primary",   getCSSVar("--background-color", "#ffffff"));
+    const bgSecondary = getCSSVar("--color-background-secondary",  getCSSVar("--minima-secondary-color", "#f5f5f5"));
+    const textPrimary = getCSSVar("--color-text-primary",          getCSSVar("--text-color", "#1a1a1a"));
+    const textSecond  = getCSSVar("--color-text-secondary",        getCSSVar("--minima-secondary-color", "#555555"));
+    const textThird   = getCSSVar("--color-text-tertiary",         "#aaaaaa");
+    const borderSoft  = getCSSVar("--color-border-tertiary",       getCSSVar("--border-color-muted", "#e0e0e0"));
+    const borderMid   = getCSSVar("--color-border-secondary",      getCSSVar("--border-color", "#cccccc"));
 
-    const stroke = isActive  ? getCSSVar("--color-text-primary",         "#111111")
-                 : isDimmed  ? getCSSVar("--color-border-tertiary",       "#e0e0e0")
-                 :             getCSSVar("--color-border-secondary",      "#cccccc");
-
-    const textC  = isActive  ? getCSSVar("--color-background-primary",   "#ffffff")
-                 : isDimmed  ? getCSSVar("--color-text-tertiary",         "#aaaaaa")
-                 :             getCSSVar("--color-text-secondary",        "#555555");
+    const fill   = isActive ? textPrimary : isDimmed ? bgSecondary : bgPrimary;
+    const stroke = isActive ? textPrimary : isDimmed ? borderSoft  : borderMid;
+    const textC  = isActive ? bgPrimary   : isDimmed ? textThird   : textSecond;
 
     const x = b.x - BLOCK_W / 2;
     const y = b.y - BLOCK_H / 2;
@@ -324,12 +352,19 @@ const SkillsBubbles = (() => {
 
   function physics() {
     blocks.forEach(b => {
+      const targetX = b.lifted ? (b.floatX !== undefined ? b.floatX : b.x) : b.groundX !== undefined ? b.groundX : b.x;
+
+      // Horizontal spring toward target column
+      if (!b.vx) b.vx = 0;
+      b.vx += (targetX - b.x) * 0.1;
+      b.vx *= DAMPING;
+      if (Math.abs(b.vx) > MAX_SPEED) b.vx = Math.sign(b.vx) * MAX_SPEED;
+      b.x += b.vx;
+
       if (b.lifted) {
-        // Spring toward floatY + gentle drift
         b.vy += (b.floatY - b.y) * FLOAT_K;
         b.vy += (Math.random() - 0.5) * DRIFT;
       } else {
-        // Gravity + spring back to ground
         b.vy += GRAVITY;
         b.vy += (b.groundY - b.y) * GROUND_K;
       }
@@ -340,7 +375,7 @@ const SkillsBubbles = (() => {
 
       // Ceiling / floor clamps
       const top = BLOCK_H / 2 + GAP;
-      if (b.y < top)                              { b.y = top;                              b.vy =  Math.abs(b.vy) * 0.3; }
+      if (b.y < top)                                { b.y = top;                                b.vy =  Math.abs(b.vy) * 0.3; }
       if (b.y > canvas.height - BLOCK_H / 2 - GAP) { b.y = canvas.height - BLOCK_H / 2 - GAP; b.vy = -Math.abs(b.vy) * 0.2; }
     });
   }
@@ -363,7 +398,7 @@ const SkillsBubbles = (() => {
   // ══════════════════════════════════════════════════════════════════════════
 
   function showPanelDefault() {
-    panel.innerHTML = `<p class="spp-placeholder" style="font-size:13px;color:var(--color-text-tertiary,#aaa);line-height:1.5;">Select a project above or click a skill to explore.</p>`;
+    panel.innerHTML = `<p style="font-size:13px;color:inherit;opacity:0.4;line-height:1.5;">Select a project above or click a skill to explore.</p>`;
   }
 
   function showPanelProject(p) {
@@ -371,21 +406,19 @@ const SkillsBubbles = (() => {
       ? p.skills.map(s => tag(s)).join(" ")
       : `<span style="font-size:12px;color:var(--color-text-tertiary,#aaa);">none listed</span>`;
 
-    const repoLink = p.repo
-      ? `<a href="${p.repo}" style="display:block;margin-top:10px;font-size:11px;color:var(--color-text-info,#1a73e8);word-break:break-all;">${p.repo.replace("https://github.com/", "github: ")}</a>`
-      : "";
-
     const subs = (p.subprojects || []).length
       ? `<p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:8px 0 3px;">subprojects</p><div style="display:flex;flex-wrap:wrap;gap:4px;">${p.subprojects.map(s => tag(s, true)).join(" ")}</div>`
       : "";
 
+    const titleEl = p.repo
+      ? `<a href="${p.repo}" style="font-size:14px;font-weight:600;color:inherit;margin:0 0 6px;display:block;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px;">${p.name} ↗</a>`
+      : `<p style="font-size:14px;font-weight:600;color:inherit;margin:0 0 6px;">${p.name}</p>`;
     panel.innerHTML = `
-      <p style="font-size:14px;font-weight:500;color:var(--color-text-primary,#111);margin:0 0 6px;">${p.name}</p>
-      <p style="font-size:12px;color:var(--color-text-secondary,#555);line-height:1.6;margin:0 0 10px;">${p.description || ""}</p>
-      <p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:0 0 4px;">skills</p>
+      ${titleEl}
+      <p style="font-size:12px;color:inherit;opacity:0.7;line-height:1.6;margin:0 0 10px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;">${p.description || ""}</p>
+      <p style="font-size:11px;color:inherit;opacity:0.45;margin:0 0 4px;">skills</p>
       <div style="display:flex;flex-wrap:wrap;gap:4px;">${skillTags}</div>
       ${subs}
-      ${repoLink}
     `;
   }
 
@@ -395,15 +428,15 @@ const SkillsBubbles = (() => {
       : `<span style="font-size:12px;color:var(--color-text-tertiary,#aaa);">no linked projects</span>`;
 
     panel.innerHTML = `
-      <p style="font-size:14px;font-weight:500;color:var(--color-text-primary,#111);margin:0 0 4px;">${b.name}</p>
-      <p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:0 0 8px;">skill</p>
-      <p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:0 0 4px;">used in</p>
+      <p style="font-size:14px;font-weight:600;color:inherit;margin:0 0 4px;">${b.name}</p>
+      <p style="font-size:11px;color:inherit;opacity:0.45;margin:0 0 8px;">skill</p>
+      <p style="font-size:11px;color:inherit;opacity:0.45;margin:0 0 4px;">used in</p>
       <div style="display:flex;flex-wrap:wrap;gap:4px;">${projectTags}</div>
     `;
   }
 
   function tag(label, muted) {
-    return `<span style="font-size:11px;padding:2px 7px;border-radius:5px;border:0.5px solid var(--color-border-secondary,#ccc);color:${muted ? "var(--color-text-tertiary,#aaa)" : "var(--color-text-secondary,#555)"};background:var(--color-background-primary,#fff);">${label}</span>`;
+    return `<span style="font-size:11px;padding:2px 7px;border-radius:4px;border:1px solid currentColor;color:inherit;opacity:${muted ? "0.4" : "0.8"};background:transparent;">${label}</span>`;
   }
 
 
@@ -507,18 +540,19 @@ const SkillsBubbles = (() => {
   // ══════════════════════════════════════════════════════════════════════════
 
   function parseYaml(input) {
-  const raw = typeof input === "string" ? JSON.parse(input) : input;
-  const rawProjects = raw.projects || raw;
+    // Input is the JS object produced by Jekyll's `jsonify` filter.
+    // Shape: { projects: [ { name, type, repo, skills, description, subprojects }, ... ] }
+    const rawProjects = input.projects || input || [];
 
     const projectsData = rawProjects
-      .filter(p => (p.type || []).includes("presentation") || (p.type || []).includes("index"))
+      .filter(p => (p.type || []).some(t => t === "presentation" || t === "index"))
       .map(p => ({
-        name:        p.name || "",
+        name:        p.name        || "",
         description: (p.description || "").trim(),
-        repo:        p.repo || null,
-        skills:      p.skills || [],
+        repo:        p.repo        || null,
+        skills:      p.skills      || [],
         subprojects: p.subprojects || [],
-        type:        p.type || [],
+        type:        p.type        || [],
       }));
 
     const skillMap = {};
@@ -535,25 +569,6 @@ const SkillsBubbles = (() => {
     return { projectsData, skillsData };
   }
 
-  function getIndent(line) {
-    return line.match(/^(\s*)/)[1].length;
-  }
-
-  function parseInlineKV(str, obj) {
-    const m = str.match(/^(\w[\w\s-]*):\s*(.*)/);
-    if (!m) return;
-    const k = m[1].trim().toLowerCase().replace(/\s+/g, "_");
-    const v = m[2].trim();
-    if (v.startsWith("[")) obj[k] = parseInlineList(v);
-    else if (v === "null") obj[k] = null;
-    else obj[k] = v.replace(/^["']|["']$/g, "");
-  }
-
-  function parseInlineList(str) {
-    const inner = str.replace(/^\[|\]$/g, "").trim();
-    if (!inner) return [];
-    return inner.split(",").map(s => s.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
-  }
 
 
   // ── Public API ─────────────────────────────────────────────────────────────

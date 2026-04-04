@@ -23,30 +23,35 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 <style>
 .skills-canvas-wrapper {
   display: flex;
+  height: 420px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, currentColor);
+  opacity: 0.9;
   margin: 1.5rem 0;
 }
 .skills-project-panel {
   width: 200px;
   min-width: 200px;
-  padding: 1.25rem;
-  border-right: 1px solid var(--border-color, #e2e8f0);
+  padding: 1rem;
+  border-right: 1px solid var(--border-color, currentColor);
   overflow-y: auto;
   font-size: 0.85rem;
 }
 .skills-canvas-area {
   flex: 1;
   min-width: 0;
-  min-height: 420px;
 }
 canvas#skills-canvas {
   display: block;
   width: 100%;
   height: 100%;
 }
+.skills-project-bar {
+  margin-bottom: 0.5rem;
+}
 </style>
+
 <script src="assets/js/skills-bubbles.js"></script>
 <script>
   const yaml = {{ site.data.projects | jsonify }};
