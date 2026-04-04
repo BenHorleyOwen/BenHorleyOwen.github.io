@@ -37,15 +37,25 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 <script src="assets/js/skills-bubbles.js"></script>
 <script>
   const diag = document.getElementById("sb-diag");
-  const skills = [
-    {% for skill in site.data.skills.skills %}
-      {
-        name: {{ skill.name | jsonify }},
-        category: {{ skill.category | jsonify }},
-        projects: {{ skill.projects | jsonify }}
-      }{% unless forloop.last %},{% endunless %}
+
+  // Aggregate skills from projects, collecting which projects each skill appears in
+  const skillMap = {};
+  {% for project in site.data.projects.projects %}
+    {% for skill in project.skills %}
+      {% assign skill_key = skill | downcase %}
+      if (!skillMap[{{ skill_key | jsonify }}]) {
+        skillMap[{{ skill_key | jsonify }}] = {
+          name: {{ skill | jsonify }},
+          category: "skill",
+          projects: []
+        };
+      }
+      skillMap[{{ skill_key | jsonify }}].projects.push({{ project.name | jsonify }});
     {% endfor %}
-  ];
+  {% endfor %}
+
+  const skills = Object.values(skillMap);
+
   try {
     SkillsBubbles.init(skills);
     diag.innerHTML += `<div style="color:#15803d"><b>init() called successfully</b></div>`;
