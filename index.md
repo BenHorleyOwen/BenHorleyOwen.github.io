@@ -13,55 +13,44 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 
 ## Skills debug
 
-<div class="skills-canvas-wrapper" style="display:flex;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;margin:1.5rem 0;background:#f8fafc;">
-
-  <div class="skills-project-panel" style="width:200px;min-width:200px;padding:1.25rem;background:#fff;border-right:1px solid #e2e8f0;overflow-y:auto;font-family:'Segoe UI',sans-serif;font-size:0.85rem;"></div>
-
-  <div class="skills-canvas-area" style="flex:1;min-width:0;display:flex;flex-direction:column;">
-    <canvas id="skills-canvas" style="display:block;width:100%;"></canvas>
-    <div class="skills-legend" style="display:flex;flex-wrap:wrap;gap:0.4rem 1rem;padding:0.65rem 1rem;border-top:1px solid #e2e8f0;background:#fff;font-family:'Segoe UI',sans-serif;font-size:0.78rem;color:#64748b;"></div>
+<div class="skills-canvas-wrapper">
+  <div class="skills-project-panel"></div>
+  <div class="skills-canvas-area">
+    <canvas id="skills-canvas"></canvas>
   </div>
-
 </div>
 
 <style>
-.spp-placeholder { color:#94a3b8; text-align:center; margin-top:2rem; line-height:1.6; }
-.spp-title       { margin:0 0 0.75rem; font-size:0.95rem; font-weight:700; color:#1e293b; }
-.spp-list        { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.35rem; }
-.spp-item        { padding:0.4rem 0.6rem; background:#f1f5f9; border-left:3px solid #3b82f6; border-radius:4px; color:#334155; }
-.spp-empty       { color:#94a3b8; border-left-color:#cbd5e1; }
-.legend-item     { display:inline-flex; align-items:center; gap:0.35rem; }
-.legend-dot      { width:9px; height:9px; border-radius:50%; background:#3b82f6; flex-shrink:0; }
+.skills-canvas-wrapper {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #e2e8f0);
+  margin: 1.5rem 0;
+}
+.skills-project-panel {
+  width: 200px;
+  min-width: 200px;
+  padding: 1.25rem;
+  border-right: 1px solid var(--border-color, #e2e8f0);
+  overflow-y: auto;
+  font-size: 0.85rem;
+}
+.skills-canvas-area {
+  flex: 1;
+  min-width: 0;
+  min-height: 420px;
+}
+canvas#skills-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 </style>
-
 <script src="assets/js/skills-bubbles.js"></script>
 <script>
-  const diag = document.getElementById("sb-diag");
-
-  // Aggregate skills from projects, collecting which projects each skill appears in
-  const skillMap = {};
-  {% for project in site.data.projects.projects %}
-    {% for skill in project.skills %}
-      {% assign skill_key = skill | downcase %}
-      if (!skillMap[{{ skill_key | jsonify }}]) {
-        skillMap[{{ skill_key | jsonify }}] = {
-          name: {{ skill | jsonify }},
-          category: "skill",
-          projects: []
-        };
-      }
-      skillMap[{{ skill_key | jsonify }}].projects.push({{ project.name | jsonify }});
-    {% endfor %}
-  {% endfor %}
-
-  const skills = Object.values(skillMap);
-
-  try {
-    SkillsBubbles.init(skills);
-    diag.innerHTML += `<div style="color:#15803d"><b>init() called successfully</b></div>`;
-  } catch(e) {
-    diag.innerHTML += `<div style="color:#dc2626"><b>init() error: ${e.message}</b></div>`;
-  }
+  const yaml = {{ site.data.projects | jsonify }};
+  SkillsBubbles.init(yaml);
 </script>
 
 ## Projects
