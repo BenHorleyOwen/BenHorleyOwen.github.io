@@ -13,6 +13,7 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 <br>
 
 ## Projects & Skills
+this is not yet mobile compatible<br>
 <div class="skills-canvas-wrapper">
   <div class="skills-project-panel"></div>
   <div class="skills-canvas-area">

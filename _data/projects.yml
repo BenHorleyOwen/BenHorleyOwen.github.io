@@ -125,5 +125,3 @@ projects:
     skills: [nodejs, python, docker, sql, networking, frontend, backend]
     description: |
       Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submission to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026)
-
-
