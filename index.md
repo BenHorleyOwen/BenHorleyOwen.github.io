@@ -7,13 +7,10 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 ## About
 
 {{ site.data.info.bio }}<br>
-<br>
-**Location:** {{ site.data.info.location }}<br>
-**Email:** [{{ site.data.info.email }}](mailto:{{ site.data.info.email }})<br>
-<br>
 
 ## Projects & Skills
 this is not yet mobile compatible<br>
+Select a project! some are indexes with their own subprojects.<br>
 <div class="skills-canvas-wrapper">
   <div class="skills-project-panel"></div>
   <div class="skills-canvas-area">
