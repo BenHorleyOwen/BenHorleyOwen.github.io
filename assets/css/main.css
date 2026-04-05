@@ -12,7 +12,7 @@
   --text-dim:   #666680;
   --text-muted: #3a3a50;
   --accent:     #e8f060;
-  --accent2:    #60a0f0;
+  --accent2:    #a0c8ff;
 
   --font-display: 'Syne', sans-serif;
   --font-body:    'Lora', serif;
@@ -127,7 +127,7 @@ main h1, main h2, main h3 {
 main h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
 main h3 { font-size: 1.1rem; }
 main p  { color: var(--text-dim); margin-bottom: 0.75rem; }
-main a  { color: var(--accent2); text-decoration: none; }
+main a, main a:visited { color: var(--accent2); text-decoration: none; }
 main a:hover { text-decoration: underline; }
 main strong { color: var(--text); font-weight: 700; }
 
