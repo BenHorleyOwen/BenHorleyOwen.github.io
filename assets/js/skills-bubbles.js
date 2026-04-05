@@ -86,6 +86,7 @@ const SkillsBubbles = (() => {
     if (animId) cancelAnimationFrame(animId);
 
     const { projectsData, skillsData } = parseYaml(yamlText);
+    window._sbProjectsData = projectsData;
 
     buildProjectBar(projectsData);
     resizeCanvas();
@@ -157,40 +158,34 @@ const SkillsBubbles = (() => {
 
   function applyBarStyles(el) {
     Object.assign(el.style, {
-      display:      "flex",
-      flexWrap:     "wrap",
-      gap:          "6px",
-      padding:      "8px 0",
-      background:   "transparent",
+      display:    "flex",
+      flexWrap:   "wrap",
+      gap:        "6px",
+      padding:    "8px 0",
+      background: "transparent",
     });
   }
 
   function applyTabStyles(btn, active) {
+    const text   = getComputedStyle(document.documentElement).getPropertyValue("--text").trim()   || "#B2ABCA";
+    const bg     = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim()     || "#0a0a0f";
+    const border = getComputedStyle(document.documentElement).getPropertyValue("--border").trim() || "#2a2a35";
+    const accent = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#e8f060";
+    const mono   = getComputedStyle(document.documentElement).getPropertyValue("--font-mono").trim() || "monospace";
     Object.assign(btn.style, {
-      fontSize:     "13px",
-      padding:      "4px 12px",
-      borderRadius: "4px",
-      border:       "1px solid currentColor",
-      background:   active ? "currentColor" : "transparent",
-      color:        "inherit",
-      opacity:      active ? "1" : "0.5",
+      fontSize:     "0.72rem",
+      padding:      "0.4rem 0.9rem",
+      border:       `1px solid ${active ? accent : border}`,
+      background:   active ? accent : "transparent",
+      color:        active ? bg : text,
+      fontFamily:   mono,
+      fontWeight:   active ? "700" : "400",
+      letterSpacing:"0.08em",
       cursor:       "pointer",
-      fontFamily:   "inherit",
       lineHeight:   "1.4",
+      borderRadius: "2px",
+      transition:   "all 0.2s",
     });
-    // for active: text needs to contrast against the filled bg
-    // use a pseudo-trick: wrap label in a span with mix-blend-mode
-    if (active) {
-      btn.style.filter = "invert(0)";
-      btn.style.outline = "2px solid currentColor";
-      btn.style.outlineOffset = "1px";
-      btn.style.background = "transparent";
-      btn.style.fontWeight = "600";
-      btn.style.opacity = "1";
-    } else {
-      btn.style.outline = "none";
-      btn.style.fontWeight = "normal";
-    }
   }
 
 
@@ -226,17 +221,18 @@ const SkillsBubbles = (() => {
 
       const groundX = GAP + col * (BLOCK_W + GAP) + BLOCK_W / 2;
       return {
-        name:     skill.name,
-        projects: Array.isArray(skill.projects) ? skill.projects : [],
-        x:        groundX,
-        y:        groundY,
-        vx:       0,
-        vy:       0,
+        name:       skill.name,
+        projects:   Array.isArray(skill.projects) ? skill.projects : [],
+        subproject: skill.subproject || null,
+        x:          groundX,
+        y:          groundY,
+        vx:         0,
+        vy:         0,
         groundX,
         groundY,
-        floatX:   groundX,
-        floatY:   GAP + BLOCK_H / 2,
-        lifted:   false,
+        floatX:     groundX,
+        floatY:     GAP + BLOCK_H / 2,
+        lifted:     false,
       };
     });
   }
@@ -247,8 +243,17 @@ const SkillsBubbles = (() => {
     const cols      = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
     const topMargin = GAP + BLOCK_H / 2;
 
+    // For index projects, also lift skills belonging to their subprojects
+    let liftNames = new Set();
+    if (selectedProject) {
+      // Find the project entry to check if it's an index with subprojects
+      const proj = (window._sbProjectsData || []).find(p => p.name === selectedProject);
+      liftNames.add(selectedProject);
+      if (proj && proj.subprojects) proj.subprojects.forEach(s => liftNames.add(s));
+    }
+
     const lifted = blocks.filter(b => {
-      if (selectedProject) return b.projects.includes(selectedProject);
+      if (selectedProject) return b.projects.some(p => liftNames.has(p));
       if (selectedSkill)   return b.name === selectedSkill;
       return false;
     });
@@ -284,19 +289,20 @@ const SkillsBubbles = (() => {
     const isActive     = b.lifted;
     const isDimmed     = hasSelection && !isActive;
 
-    // Resolve from CSS variables so the component inherits the page theme.
-    // Fallbacks are neutral and readable on both light and dark backgrounds.
-    const bgPrimary   = getCSSVar("--color-background-primary",   getCSSVar("--background-color", "#ffffff"));
-    const bgSecondary = getCSSVar("--color-background-secondary",  getCSSVar("--minima-secondary-color", "#f5f5f5"));
-    const textPrimary = getCSSVar("--color-text-primary",          getCSSVar("--text-color", "#1a1a1a"));
-    const textSecond  = getCSSVar("--color-text-secondary",        getCSSVar("--minima-secondary-color", "#555555"));
-    const textThird   = getCSSVar("--color-text-tertiary",         "#aaaaaa");
-    const borderSoft  = getCSSVar("--color-border-tertiary",       getCSSVar("--border-color-muted", "#e0e0e0"));
-    const borderMid   = getCSSVar("--color-border-secondary",      getCSSVar("--border-color", "#cccccc"));
+    // Use the page's own CSS variables directly — no guessing fallback chains
+    const text   = getCSSVar("--text",   "#B2ABCA");
+    const bg     = getCSSVar("--bg",     "#0a0a0f");
+    const border = getCSSVar("--border", "#2a2a35");
+    const accent = getCSSVar("--accent", "#e8f060");
 
-    const fill   = isActive ? textPrimary : isDimmed ? bgSecondary : bgPrimary;
-    const stroke = isActive ? textPrimary : isDimmed ? borderSoft  : borderMid;
-    const textC  = isActive ? bgPrimary   : isDimmed ? textThird   : textSecond;
+    // Active: accent fill, bg-coloured label. Normal: faint tint + full text. Dimmed: faded.
+    const fill   = isActive ? accent                     : "rgba(178,171,202,0.08)";
+    const stroke = isActive ? accent                     : border;
+    const textC  = isActive ? bg                        : text;
+    if (isDimmed) {
+      ctx.save();
+      ctx.globalAlpha = 0.4;
+    }
 
     const x = b.x - BLOCK_W / 2;
     const y = b.y - BLOCK_H / 2;
@@ -322,7 +328,7 @@ const SkillsBubbles = (() => {
     ctx.stroke();
 
     // Label — word-wrapped
-    const font = getCSSVar("--font-sans", "sans-serif");
+    const font = getCSSVar("--font-mono", getCSSVar("--font-body", "sans-serif"));
     ctx.font         = `${isActive ? 500 : 400} 11px ${font}`;
     ctx.fillStyle    = textC;
     ctx.textAlign    = "center";
@@ -342,6 +348,7 @@ const SkillsBubbles = (() => {
     const lh     = 13;
     const startY = b.y - ((lines.length - 1) * lh) / 2;
     lines.forEach((l, i) => ctx.fillText(l, b.x, startY + i * lh));
+    if (isDimmed) ctx.restore();
   }
 
 
@@ -410,17 +417,32 @@ const SkillsBubbles = (() => {
     panel.innerHTML = `<p style="font-size:13px;color:inherit;opacity:0.4;line-height:1.5;">Select a project above or click a skill to explore.</p>`;
   }
 
+  function mdToHtml(text) {
+    // Convert markdown [label](url) links to <a> tags
+    return text.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+      (_, label, url) => `<a href="${url}" style="color:inherit;opacity:0.9;text-decoration:underline;">${label}</a>`);
+  }
+
   function showPanelProject(p) {
     const subs = (p.subprojects || []).length
-      ? `<p style="font-size:11px;color:var(--color-text-tertiary,#aaa);margin:8px 0 3px;">subprojects</p><div style="display:flex;flex-wrap:wrap;gap:4px;">${p.subprojects.map(s => tag(s, true)).join(" ")}</div>`
+      ? `<div style="margin-top:10px;">
+           <p style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:inherit;opacity:0.5;margin:0 0 5px;">Subprojects</p>
+           <div style="display:flex;flex-direction:column;gap:3px;">
+             ${p.subprojects.map(s => s.repo
+               ? `<a href="${s.repo}" style="font-size:11px;padding:2px 7px;border-radius:3px;border-left:2px solid currentColor;color:inherit;opacity:0.8;text-decoration:none;display:block;">${s.name} ↗</a>`
+               : `<span style="font-size:11px;padding:2px 7px;border-radius:3px;border-left:2px solid currentColor;color:inherit;opacity:0.6;">${s.name}</span>`
+             ).join("")}
+           </div>
+         </div>`
       : "";
 
     const titleEl = p.repo
       ? `<a href="${p.repo}" style="font-size:14px;font-weight:600;color:inherit;margin:0 0 6px;display:block;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px;">${p.name} ↗</a>`
       : `<p style="font-size:14px;font-weight:600;color:inherit;margin:0 0 6px;">${p.name}</p>`;
+
     panel.innerHTML = `
       ${titleEl}
-      <div class="sb-desc" style="font-size:12px;color:inherit;opacity:0.7;line-height:1.7;margin:0;overflow-y:auto;flex:1;">${p.description || ""}</div>
+      <div class="sb-desc" style="font-size:12px;color:inherit;opacity:0.7;line-height:1.7;margin:0;overflow-y:auto;flex:1;">${mdToHtml(p.description || "")}</div>
       ${subs}
     `;
   }
@@ -543,9 +565,19 @@ const SkillsBubbles = (() => {
   // ══════════════════════════════════════════════════════════════════════════
 
   function parseYaml(input) {
-    // Input is the JS object produced by Jekyll's `jsonify` filter.
-    // Shape: { projects: [ { name, type, repo, skills, description, subprojects }, ... ] }
     const rawProjects = input.projects || input || [];
+
+    // Build a lookup of subproject name -> parent project name
+    const subparent = {};
+    rawProjects.forEach(p => {
+      (p.subprojects || []).forEach(sname => { subparent[sname] = p.name; });
+    });
+
+    // Build a lookup of subproject name -> full subproject entry (for repos)
+    const subMap = {};
+    rawProjects.forEach(p => {
+      if ((p.type || []).includes("subproject")) subMap[p.name] = p;
+    });
 
     const projectsData = rawProjects
       .filter(p => (p.type || []).some(t => t === "presentation" || t === "index"))
@@ -554,17 +586,28 @@ const SkillsBubbles = (() => {
         description: (p.description || "").trim(),
         repo:        p.repo        || null,
         skills:      p.skills      || [],
-        subprojects: p.subprojects || [],
+        subprojects: (p.subprojects || []).map(sname => ({
+          name: sname,
+          repo: (subMap[sname] || {}).repo || null,
+        })),
         type:        p.type        || [],
-      }));
+        priority:    p.priority != null ? Number(p.priority) : 99,
+      }))
+      .sort((a, b) => a.priority - b.priority);
 
+    // skillMap: each skill knows which top-level projects use it,
+    // and which subproject it came from (for colour coding)
     const skillMap = {};
     rawProjects.forEach(p => {
+      const topName = subparent[p.name] || p.name;
       (p.skills || []).forEach(s => {
         const key = s.trim().toLowerCase();
-        if (!skillMap[key]) skillMap[key] = { name: s.trim(), projects: [] };
-        if (p.name && !skillMap[key].projects.includes(p.name))
-          skillMap[key].projects.push(p.name);
+        if (!skillMap[key]) skillMap[key] = { name: s.trim(), projects: [], subproject: null };
+        if (!skillMap[key].projects.includes(topName))
+          skillMap[key].projects.push(topName);
+        // Record which subproject introduced this skill (first one wins)
+        if (subparent[p.name] && !skillMap[key].subproject)
+          skillMap[key].subproject = p.name;
       });
     });
     const skillsData = Object.values(skillMap).sort((a, b) => a.name.localeCompare(b.name));
