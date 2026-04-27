@@ -23,7 +23,7 @@ projects:
     repo: null
     skills: []
     description: |
-      homelab dashboard which holds connections to each of my other services, routed using tailscale's DNS.
+      homelab dashboard which holds connections to each of my other services, routed using tailscale's DNS and docker networks
 
   - name: Tandoor
     type: [subproject]
@@ -44,7 +44,7 @@ projects:
   - name: Music Server
     type: [subproject]
     priority: 2
-    repo: null
+    repo: https://github.com/BenHorleyOwen/Music-Server
     skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation,]
     description: |
       a container stack to automate the ingest of music into my home music server
@@ -60,11 +60,10 @@ projects:
   - name: Portfolio Website
     type: [presentation]
     priority: 2
-    repo: https://github.com/BenHorleyOwen/BenHorleyOwen.github.io
+    repo: https://benhorleyowen.github.io
     skills: [Automation, Github Actions, Frontend, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD]
     description: |
-      The Portfolio web-page, deployed with github pages and locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates)
-      - "Projects" section is automatically generated from my personal notes when I [push them from my personal notes](https://github.com/BenHorleyOwen/Automated-portfolio-deployment).
+      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
 
   - name: Gestural Mouse
     type: [presentation]
@@ -78,7 +77,7 @@ projects:
     type: [presentation]
     priority: 1
     repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
-    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, scripting, python, Github Actions, Error Handling,]
+    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, scripting, python, Github Actions, Error Handling, refactoring]
     description: |
       The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
       Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
@@ -132,6 +131,118 @@ projects:
     skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker]
     description: |
       I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
+
+  - name: Music Index
+    type: [index]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Index
+    skills: [Organisation, Docker, Compose, Networking, Problem solving, File Handling]
+    description: |
+      overarching index repo to hold my different music subprojects, I have a lot of different things I like to make pertaining to music.
+    subprojects: [Music Server, Music Sync, Music Drive, Eternal Jukebox Radio, Robot Karaoke, Music Dashboard, Compose Templates]
+
+  - name: Music Server
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Server
+    skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation,]
+    description: |
+      a container stack to automate the ingest of music into my home music server
+
+  - name: Music Sync
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Sync
+    skills: [APIs, Backups, Automation, Scripting, Terraform]
+    description: |
+
+  - name: Music Drive
+    type: [subproject]
+    priority: 2
+    repo: null
+    skills: []
+    description: |
+      music queue based off of road conditions and other driving sensors, e.g. going on to a motor way queues faster music, driving through nature shifts the vibes more placidly
+
+  - name: Eternal Jukebox Radio
+    type: [subproject]
+    priority: 2
+    repo: null
+    skills: []
+    description: |
+      using the music scanning concept from the eternal jukebox over my personal playlists to make them seamlessly flow rather then relying on song ending and beginnings.
+
+  - name: Robot Karaoke
+    type: [presentation]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Karaoke
+    skills: [APIs, Docker, Networking, NodeJS, HTML, Express,]
+    description: |
+      personal copycat of [Jbrew's robot karaoke player](https://github.com/jbrew/robot-karaoke-player); "a web player for karaoke songs with procedurally generated replacement lyrics". Modified to interact with my music server as a backend.
+      - currently, the project only works as regular karaoke.
+
+  - name: Music Dashboard
+    type: [subproject]
+    priority: 2
+    repo: null
+    skills: []
+    description: |
+      ---
+      tags:
+        - project
+        - subproject
+        - unpresentable
+      skills:
+      github:
+      ---
+      proposed extention to my dashboard which would act as a music sync service to display the song im listening to on the music server, and allows me to write and edit a note about each song as a md metadata, which could be displayed in the dash. 
+      - navidrome already holds a provision for comments, it just needs to be synced to dash.
+      - 
+      # Presentation
+      ## Description
+
+  - name: Compose Templates
+    type: [index]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Compose-Templates
+    skills: [Github Submodules, Templates, Organisation, CI/CD, Actions, Version Control]
+    description: |
+      this is an index of compose stacks that I have either set up as templates or for quick deploy across my devices. 
+      Contains a workflow to automatically hyperlink the submodules and any future additions.
+    subprojects: [API Template, Node Template, Jekyll Host, Database Node]
+
+  - name: API Template
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/API-template
+    skills: [Docker, Python, FastAPI, Networking]
+    description: |
+      This project is a quick compose file made during a hackathon to quickly initialise a database and API serving container network on the local network.
+
+  - name: Node Template
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Node-Template
+    skills: [NodeJS, APIs, Docker, Networking,]
+    description: |
+      This compose file mounts a given directory and serves it as a node js web server.
+
+  - name: Jekyll Host
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Jekyll-Host
+    skills: [Jekyll, Dev Environments, Docker, Deployment]
+    description: |
+      This compose file builds a mounted directory and serves the webpage locally. 
+      This was utilised as a local development environment while i was designing my portfolio webpage.
+
+  - name: Database Node
+    type: [subproject]
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Database-Node
+    skills: [NodeJS, Python, Docker, SQL, Networking, Frontend, Backend]
+    description: |
+      Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
 
   - name: Compose Templates
     type: [index]
