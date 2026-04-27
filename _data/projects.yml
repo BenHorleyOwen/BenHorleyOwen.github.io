@@ -155,6 +155,7 @@ projects:
     repo: https://github.com/BenHorleyOwen/Music-Sync
     skills: [APIs, Backups, Automation, Scripting, Terraform]
     description: |
+      project for syncing my playlists across platforms without having to pay any subscriptions for prexisting services, born from pettiness
 
   - name: Music Drive
     type: [subproject]
@@ -173,7 +174,7 @@ projects:
       using the music scanning concept from the eternal jukebox over my personal playlists to make them seamlessly flow rather then relying on song ending and beginnings.
 
   - name: Robot Karaoke
-    type: [presentation]
+    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Karaoke
     skills: [APIs, Docker, Networking, NodeJS, HTML, Express,]
