@@ -1,144 +1,184 @@
 projects:
 
   - name: HomeLab setup
-    type: [index]
     priority: 3
     repo: null
-    skills: [docker, networking]
+    skills: [Docker, Networking]
     description: |
       This is a collection of the different services I run at home, links under this category go to the original repositories.
     subprojects: [Tailscale VPN, Dashboard, Tandoor, Penpot selfhost, Music Server, Obsidian Host]
 
   - name: Tailscale VPN
-    type: [subproject]
     priority: 2
     repo: https://github.com/tailscale/tailscale
-    skills: [vpn, networking]
+    skills: [VPN, Networking]
     description: |
       VPN to network my devices together, also allows me to access my services when away from home.
 
   - name: Dashboard
-    type: [subproject]
     priority: 2
     repo: null
     skills: []
     description: |
-      homelab dashboard which holds connections to each of my other services, routed using tailscale's DNS.
+      homelab dashboard which holds connections to each of my other services, routed using tailscale's DNS and docker networks
 
   - name: Tandoor
-    type: [subproject]
     priority: 2
     repo: https://github.com/TandoorRecipes/recipes
-    skills: [docker]
+    skills: [Docker]
     description: |
       Recipe archive
 
   - name: Penpot selfhost
-    type: [subproject]
     priority: 2
     repo: https://github.com/penpot/penpot
-    skills: [docker]
+    skills: [Docker]
     description: |
-      I have a local version of Penpot which I use for [[CV Export]]
+      I have a local version of Penpot which I intend to extend for a future project.
 
   - name: Music Server
-    type: [subproject]
     priority: 2
-    repo: null
-    skills: [docker, apis, file handling, p2p, ci/cd, automation,]
+    repo: https://github.com/BenHorleyOwen/Music-Server
+    skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation,]
     description: |
       a container stack to automate the ingest of music into my home music server
 
   - name: Obsidian Host
-    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Obsidian-Server
-    skills: [organisation, docker, compose, networking, problem solving]
+    skills: [Organisation, Docker, Compose, Networking, Problem solving]
     description: |
       I created a compose for my home lab which hosts my obsidian notes over my local network.
 
+  - name: Portfolio Website
+    priority: 2
+    repo: https://benhorleyowen.github.io
+    skills: [Automation, Github Actions, Frontend, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD]
+    description: |
+      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
+
   - name: Gestural Mouse
-    type: [presentation]
     priority: 3
     repo: https://github.com/BenHorleyOwen/Gestural-Mouse
-    skills: [opencv, mediapipe, python]
+    skills: [OpenCV, Mediapipe, Python]
     description: |
       a fun, small, subproject to control my computer across my room
 
-  - name: Portfolio Website
-    type: [presentation]
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/BenHorleyOwen.github.io
-    skills: [automation, github actions, frontend, javascript, file handling, scripting, organisation, ruby, jekyll]
-    description: |
-      The Portfolio web-page, deployed with github pages and locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates)
-      - "Projects" section is automatically generated from my personal notes when I [push them from my personal notes](https://github.com/BenHorleyOwen/Automated-portfolio-deployment).
-
   - name: Automated Portfolio Deployment
-    type: [presentation]
     priority: 1
     repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
-    skills: [version control, automation, file handling, organisation, oop, ci/cd, oauth, resuable workflows, scripting, python]
+    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, scripting, python, Github Actions, Error Handling, refactoring]
     description: |
       The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
       Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
 
+  - name: Secure Network Configuration Lab
+    priority: 2
+    repo: null
+    skills: [Active Directory, Authentication, Networking, Administration, Apache, Linux, Windows 7, Sandboxing, Report Writing, Samba, Linux PAM, Unix System Administration,]
+    description: |
+      A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
+
+  - name: Leetcode Automation
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/Leetcode-Synchroniser
+    skills: [APIs, Backups, Automation, Scripting, Github Actions]
+    description: |
+      This is an implementation of a GitHub action written by dos-m0nk3y to collect leetcode submissions, using a modified version by HoneyHabib for language support.
+      The automation is used to gather the leetcode challenges I have completed with the accepted submission.
+
+  - name: Modular Workspace
+    priority: 2
+    repo: null
+    skills: [Organisation,]
+    description: |
+      This is a collection of small projects and modifications made to my obsidian workspace to improve my own workspace and flow.
+    subprojects: [Applications bases, Project Collection]
+
+  - name: Applications bases
+    priority: 2
+    repo: null
+    skills: [Organisation, Data Architecture]
+    description: |
+      I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
+
+  - name: Project Collection
+    priority: 2
+    repo: null
+    skills: [Organisation,]
+    description: |
+      I keep all my projects within a native obsidian base, with file tagging, github links and skills for automatized data collection. These projects are automatically extended and categorised based off template macros. This database is referenced for my Automated Portfolio generation.
+
   - name: incremental journal backup
-    type: [presentation]
     priority: 1
     repo: https://github.com/BenHorleyOwen/Incremental-Journal-Backup
-    skills: [apis, backups, automation, scripting]
+    skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker]
     description: |
-      modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
+      I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
+
+  - name: Music Index
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Index
+    skills: [Organisation, Docker, Compose, Networking, Problem solving, File Handling]
+    description: |
+      overarching index repo to hold my different music subprojects, I have a lot of different things I like to make pertaining to music.
+    subprojects: [Music Server, Robot Karaoke]
+
+  - name: Music Server
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Server
+    skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation,]
+    description: |
+      a container stack to automate the ingest of music into my home music server
+
+  - name: Robot Karaoke
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Karaoke
+    skills: [APIs, Docker, Networking, NodeJS, HTML, Express,]
+    description: |
+      personal copycat of [Jbrew's robot karaoke player](https://github.com/jbrew/robot-karaoke-player); "a web player for karaoke songs with procedurally generated replacement lyrics". Modified to interact with my music server as a backend. Currently, the project only works as regular karaoke.
 
   - name: Compose Templates
-    type: [index]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Compose-Templates
-    skills: [github, submodules, templates, organisation, ci/cd, actions]
+    skills: [Github Submodules, Templates, Organisation, CI/CD, Actions, Version Control]
     description: |
       this is an index of compose stacks that I have either set up as templates or for quick deploy across my devices. 
       Contains a workflow to automatically hyperlink the submodules and any future additions.
     subprojects: [API Template, Node Template, Jekyll Host, Database Node]
 
   - name: API Template
-    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/API-template
-    skills: [docker, python, fastapi, networking]
+    skills: [Docker, Python, FastAPI, Networking]
     description: |
       This project is a quick compose file made during a hackathon to quickly initialise a database and API serving container network on the local network.
 
   - name: Node Template
-    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Node-Template
-    skills: [nodejs, apis, docker, networking, sql]
+    skills: [NodeJS, APIs, Docker, Networking,]
     description: |
       This compose file mounts a given directory and serves it as a node js web server.
 
   - name: Jekyll Host
-    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Jekyll-Host
-    skills: [jekyll, environments, docker, deployment]
+    skills: [Jekyll, Dev Environments, Docker, Deployment]
     description: |
       This compose file builds a mounted directory and serves the webpage locally. 
       This was utilised as a local development environment while i was designing my portfolio webpage.
 
   - name: Database Node
-    type: [subproject]
     priority: 2
     repo: https://github.com/BenHorleyOwen/Database-Node
-    skills: [nodejs, python, docker, sql, networking, frontend, backend]
+    skills: [NodeJS, Python, Docker, SQL, Networking, Frontend, Backend]
     description: |
       Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
 
-  - name: Leetcode Automation
-    type: [presentation]
-    priority: 3
-    repo: https://github.com/BenHorleyOwen/Leetcode-Synchroniser
-    skills: [apis, backups, automation, scripting]
+  - name: Maps manhunt
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Map
+    skills: [NodeJS, APIs, GPS, VPN, JavaScript, HTML, Kubernetes, Websockets, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker,]
     description: |
-      This is an implementation of a GitHub action written by dos-m0nk3y to collect leetcode submissions, using a modified version by HoneyHabib for language support.
-      The automation is used to gather the leetcode challenges I have completed with the accepted submission.
+      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
