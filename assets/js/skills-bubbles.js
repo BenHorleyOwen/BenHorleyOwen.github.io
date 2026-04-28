@@ -573,14 +573,22 @@ const SkillsBubbles = (() => {
       (p.subprojects || []).forEach(sname => { subparent[sname] = p.name; });
     });
 
+    // Infer types from structure:
+    const subprojectNames = new Set(Object.keys(subparent));
+    const getType = p => {
+      if (p.subprojects && p.subprojects.length > 0) return "index";
+      if (subprojectNames.has(p.name)) return "subproject";
+      return "project";
+    };
+
     // Build a lookup of subproject name -> full subproject entry (for repos)
     const subMap = {};
     rawProjects.forEach(p => {
-      if ((p.type || []).includes("subproject")) subMap[p.name] = p;
+      if (getType(p) === "subproject") subMap[p.name] = p;
     });
 
     const projectsData = rawProjects
-      .filter(p => (p.type || []).some(t => t === "presentation" || t === "index"))
+      .filter(p => getType(p) === "index" || getType(p) === "project")
       .map(p => ({
         name:        p.name        || "",
         description: (p.description || "").trim(),
@@ -590,7 +598,7 @@ const SkillsBubbles = (() => {
           name: sname,
           repo: (subMap[sname] || {}).repo || null,
         })),
-        type:        p.type        || [],
+        type:        getType(p),
         priority:    p.priority != null ? Number(p.priority) : 99,
       }))
       .sort((a, b) => a.priority - b.priority);
