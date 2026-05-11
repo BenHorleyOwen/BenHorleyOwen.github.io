@@ -3,7 +3,7 @@ projects:
   - name: HomeLab setup
     priority: 3
     repo: null
-    skills: [Docker, Docker Compose, Self hosting, service orchestration, linux administration, container networking, infrastructure management]
+    skills: [Docker, Docker Compose, Self hosting, service orchestration, linux administration, container networking,]
     description: |
       This is a collection of the different services I run at home, links under this category go to the original repositories.
     subprojects: [Tailscale VPN, Dashboard, Tandoor, Penpot selfhost, Music Server, Obsidian Host]
@@ -11,7 +11,7 @@ projects:
   - name: Tailscale VPN
     priority: 2
     repo: https://github.com/tailscale/tailscale
-    skills: [VPN, Networking, remote access infrastructure, network security, zero trust networking]
+    skills: [VPN, Networking, remote access, network security]
     description: |
       VPN to network my devices together, also allows me to access my services when away from home.
 
@@ -53,7 +53,7 @@ projects:
   - name: Portfolio Website
     priority: 2
     repo: https://benhorleyowen.github.io
-    skills: [Automation, Github Actions, Frontend, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD]
+    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
     description: |
       webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
 
@@ -75,7 +75,7 @@ projects:
   - name: Secure Network Configuration Lab
     priority: 2
     repo: null
-    skills: [Active Directory, Authentication, Networking, Apache, Linux, Windows 7, Sandboxing, Report Writing, Samba, Linux PAM, Unix System Administration, Identity Management, Access Control, Domain Administration,]
+    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration,]
     description: |
       A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
 
@@ -98,7 +98,7 @@ projects:
   - name: Applications bases
     priority: 2
     repo: null
-    skills: [Organisation, Data Architecture, Data Modelling, Information Architecture, Workflow Automation]
+    skills: [Organisation, Data Architecture, Information Architecture, Workflow Automation]
     description: |
       I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
 
@@ -134,7 +134,7 @@ projects:
   - name: Compose Templates
     priority: 2
     repo: https://github.com/BenHorleyOwen/Compose-Templates
-    skills: [Github Submodules, Organisation, CI/CD, Github Actions, Version Control, Service Orchestration, Developer Tooling, Docker Compose, Infrastructure Templates]
+    skills: [Github Submodules, Organisation, CI/CD, Github Actions, Version Control, Service Orchestration, Developer Tooling, Docker Compose]
     description: |
       this is an index of compose stacks that I have either set up as templates or for quick deploy across my devices. 
       Contains a workflow to automatically hyperlink the submodules and any future additions.
@@ -143,14 +143,14 @@ projects:
   - name: API Template
     priority: 2
     repo: https://github.com/BenHorleyOwen/API-template
-    skills: [Docker, Python, FastAPI, Networking, Service Architecture, Backend Development]
+    skills: [Docker, Python, FastAPI, Networking, Service Architecture, Full Stack Development]
     description: |
       This project is a quick compose file made during a hackathon to quickly initialise a database and API serving container network on the local network.
 
   - name: Node Template
     priority: 2
     repo: https://github.com/BenHorleyOwen/Node-Template
-    skills: [NodeJS, APIs, Docker, Networking, Web Server Infrastructure, Backend Development]
+    skills: [NodeJS, APIs, Docker, Networking, Full Stack Development]
     description: |
       This compose file mounts a given directory and serves it as a node js web server.
 
