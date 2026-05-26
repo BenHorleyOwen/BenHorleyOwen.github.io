@@ -1,5 +1,12 @@
 projects:
 
+  - name: Building a Shell
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
+    skills: [Javascript,]
+    description: |
+      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
+
   - name: Secure Network Configuration Lab
     priority: 2
     repo: null
@@ -58,7 +65,7 @@ projects:
     skills: [Organisation, Workflow Design, Information Architecture, Knowledge Management]
     description: |
       This is a collection of small projects and modifications made to my obsidian workspace to improve my own workspace and flow.
-    subprojects: [Applications bases]
+    subprojects: [Applications bases, Fixing my skills list]
 
   - name: Applications bases
     priority: 2
@@ -66,6 +73,13 @@ projects:
     skills: [Organisation, Data Architecture, Information Architecture, Workflow Automation]
     description: |
       I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
+
+  - name: Fixing my skills list
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Obsidian-frontmatter-edit
+    skills: [Data Architecture, Metascript, Python, Data Integrity, CIA Triad]
+    description: |
+      Metascript which makes all my project information compliant with obsidians list property type rather than CSV text fields
 
   - name: Portfolio Website
     priority: 2
