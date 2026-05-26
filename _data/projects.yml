@@ -3,14 +3,14 @@ projects:
   - name: Building a Shell
     priority: 2
     repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
-    skills: [Javascript,]
+    skills: [Javascript, ]
     description: |
       followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
 
   - name: Secure Network Configuration Lab
     priority: 2
     repo: null
-    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration,]
+    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration, ]
     description: |
       A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
 
@@ -98,7 +98,7 @@ projects:
   - name: HomeLab setup
     priority: 3
     repo: null
-    skills: [Docker, Docker Compose, Self hosting, service orchestration, linux administration, container networking,]
+    skills: [Docker, Docker Compose, Self hosting, service orchestration, linux administration, container networking, ]
     description: |
       This is a collection of the different services I run at home, links under this category go to the original repositories.
     subprojects: [Tailscale VPN, Dashboard, Tandoor, Penpot selfhost, Music Server, Obsidian Host]
