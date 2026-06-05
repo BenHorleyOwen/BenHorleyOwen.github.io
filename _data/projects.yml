@@ -1,5 +1,6 @@
 projects:
 
+<<<<<<< HEAD
   - name: Automated Portfolio Deployment
     priority: 1
     repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
@@ -14,6 +15,145 @@ projects:
     skills: [Javascript, Shell, NodeJS, Event-driven architecture, CLI Development, POSIX behaviour, REPL, File Handling, VS Code, Refactoring, Software Architecture]
     description: |
       followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
+=======
+  - name: Portfolio Website
+    priority: 2
+    repo: https://benhorleyowen.github.io
+    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
+    description: |
+      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
+
+  - name: Leetcode Automation
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/Leetcode-Synchroniser
+    skills: [APIs, Backups, Automation, Scripting, Github Actions, Workflow Automation, Repository Automation, Data Synchronisation]
+    description: |
+      This is an implementation of a GitHub action written by dos-m0nk3y to collect leetcode submissions, using a modified version by HoneyHabib for language support.
+      The automation is used to gather the leetcode challenges I have completed with the accepted submission.
+
+  - name: Modular Workspace
+    priority: 2
+    repo: null
+    skills: [Organisation, Workflow Design, Information Architecture, Knowledge Management]
+    description: |
+      This is a collection of small projects and modifications made to my obsidian workspace to improve my own workspace and flow.
+    subprojects: [Applications bases, Fixing my skills list]
+
+  - name: Applications bases
+    priority: 2
+    repo: null
+    skills: [Organisation, Data Architecture, Information Architecture, Workflow Automation]
+    description: |
+      I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
+
+  - name: Fixing my skills list
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment/blob/main/.github/scripts/convertFrontmatter.py
+    skills: [Data Architecture, Metascripting, Python, Data Integrity, CIA Triad, Metadata Management]
+    description: |
+      Metascript which makes all my project information compliant with obsidians list property type rather than CSV text fields
+
+  - name: incremental journal backup
+    priority: 1
+    repo: https://github.com/BenHorleyOwen/Incremental-Journal-Backup
+    skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker, Incremental Backups, Data Synchronisation, Workflow Automation]
+    description: |
+      I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
+
+  - name: HomeLab setup
+    priority: 3
+    repo: null
+    skills: [Docker, Docker Compose, Self hosting, service orchestration, linux administration, container networking, ]
+    description: |
+      This is a collection of the different services I run at home, links under this category go to the original repositories.
+    subprojects: [Tailscale VPN, Dashboard, Tandoor, Penpot selfhost, Music Server, Obsidian Host]
+
+  - name: Tailscale VPN
+    priority: 2
+    repo: https://github.com/tailscale/tailscale
+    skills: [VPN, Networking, remote access, network security]
+    description: |
+      VPN to network my devices together, also allows me to access my services when away from home.
+
+  - name: Dashboard
+    priority: 2
+    repo: null
+    skills: [service discovery, dns configuration]
+    description: |
+      homelab dashboard which holds connections to each of my other services, routed using tailscale's DNS and docker networks
+
+  - name: Tandoor
+    priority: 2
+    repo: https://github.com/TandoorRecipes/recipes
+    skills: [VPN, Docker, Self Hosting]
+    description: |
+      Recipe archive, accessible on my local network and through my tailscale network.
+
+  - name: Penpot selfhost
+    priority: 2
+    repo: https://github.com/penpot/penpot
+    skills: [Docker, service deployment, self hosting]
+    description: |
+      I have a local version of Penpot which I intend to extend for a future project.
+
+  - name: Music Server
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Server
+    skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation, media automation, container orchestration, docker compose]
+    description: |
+      A container stack to automate the ingest of music into my home music server. The stack is made up of Navidrome (server backend), Slskd (for ingest) and beets (for automatic tagging and organisation). This backend architecture is ten further accessed by other projects under my music index through dockers internal network.
+
+  - name: Obsidian Host
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Obsidian-Server
+    skills: [Organisation, Docker Compose, Networking, Problem solving, Self Hosting, local network services]
+    description: |
+      I created a compose for my home lab which hosts my obsidian notes over my local network.
+
+  - name: Automated Portfolio Deployment
+    priority: 1
+    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
+    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, Scripting, Python, Github Actions, Error Handling, Refactoring, Repository Automation, Metadata Management, Static Site Generation]
+    description: |
+      The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
+      Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
+
+  - name: Building a Shell
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
+    skills: [Javascript, Shell]
+    description: |
+      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
+
+  - name: Music Index
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Index
+    skills: [Organisation, Docker, Compose, Networking, Problem solving, File Handling, Project Architecture, Metadata Management]
+    description: |
+      overarching index repo to hold my different music subprojects, I have a lot of different things I like to make pertaining to music.
+    subprojects: [Music Server, Robot Karaoke]
+
+  - name: Music Server
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Music-Server
+    skills: [Docker, APIs, File Handling, P2P, CI/CD, Automation, media automation, container orchestration, docker compose]
+    description: |
+      A container stack to automate the ingest of music into my home music server. The stack is made up of Navidrome (server backend), Slskd (for ingest) and beets (for automatic tagging and organisation). This backend architecture is ten further accessed by other projects under my music index through dockers internal network.
+
+  - name: Robot Karaoke
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Karaoke
+    skills: [APIs, Docker, Networking, NodeJS, HTML, Express.js, Web Applications, Media Automation]
+    description: |
+      personal copycat of [Jbrew's robot karaoke player](https://github.com/jbrew/robot-karaoke-player); "a web player for karaoke songs with procedurally generated replacement lyrics". Modified to interact with my music server as a backend. Currently, the project only works as regular karaoke.
+>>>>>>> 7b8d20915191ad5f8b5b261890a6a9a42927e831
+
+  - name: Maps manhunt
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Map
+    skills: [NodeJS, JavaScript, HTML, Kubernetes, WebSocket Communication, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker, Real Time Systems, Interactive Mapping, Geolocation APIs, Container Networking]
+    description: |
+      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
 
   - name: Compose Templates
     priority: 2
@@ -53,6 +193,7 @@ projects:
     description: |
       Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
 
+<<<<<<< HEAD
   - name: Gestural Mouse
     priority: 3
     repo: https://github.com/BenHorleyOwen/Gestural-Mouse
@@ -189,3 +330,18 @@ projects:
     skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration, ]
     description: |
       A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
+=======
+  - name: Secure Network Configuration Lab
+    priority: 2
+    repo: null
+    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration, ]
+    description: |
+      A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
+
+  - name: Gestural Mouse
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/Gestural-Mouse
+    skills: [OpenCV, Mediapipe, Python]
+    description: |
+      a fun, small, subproject to control my computer across my room
+>>>>>>> 7b8d20915191ad5f8b5b261890a6a9a42927e831
