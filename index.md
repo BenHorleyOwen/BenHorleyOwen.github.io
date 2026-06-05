@@ -10,7 +10,7 @@ description: Security Engineer | DevSecOps Engineer | Infrastructure Security | 
 
 ## Projects & Skills
 this is not yet mobile compatible<br>
-Select a project! some are indexes with their own subprojects.<br>
+Select a project! some are indexes with their own subprojects. Index projects take on the skills of their subprojects, which can be accessed from the block bottom left.<br>
 <div class="skills-canvas-wrapper">
   <div class="skills-project-panel"></div>
   <div class="skills-canvas-area">

@@ -89,9 +89,17 @@ const SkillsBubbles = (() => {
     window._sbProjectsData = projectsData;
 
     buildProjectBar(projectsData);
-    resizeCanvas(skillsData.length);
+
+    // Worst-case lift: the project (+ subprojects) that shares the most skills
+    const liftCounts = projectsData.map(p => {
+      const names = new Set([p.name, ...(p.subprojects || []).map(s => s.name)]);
+      return skillsData.filter(s => s.projects.some(pn => names.has(pn))).length;
+    });
+    const maxLiftCount = liftCounts.length ? Math.max(...liftCounts) : 0;
+
+    resizeCanvas(skillsData.length, maxLiftCount);
     spawnBlocks(skillsData);
-    bindEvents(skillsData, projectsData);
+    bindEvents(skillsData, projectsData, maxLiftCount);
     showPanelDefault();
     tick();
   }
@@ -191,27 +199,32 @@ const SkillsBubbles = (() => {
 
   // ══════════════════════════════════════════════════════════════════════════
   // CANVAS SIZING
-  // Height is calculated from the number of skills so every block fits.
-  // Pass skillCount to compute the required rows; omit to reflow using the
-  // current block count (used by the resize-event handler).
   // ══════════════════════════════════════════════════════════════════════════
 
-  function resizeCanvas(skillCount) {
+  function resizeCanvas(totalSkills, maxLiftCount) {
     const area   = canvas.parentElement;
     canvas.width = area.clientWidth || 600;
 
-    // Resolve how many skills we're sizing for
-    const count = skillCount != null ? skillCount : blocks.length;
+    const total   = totalSkills  != null ? totalSkills  : blocks.length;
+    const maxLift = maxLiftCount != null ? maxLiftCount : 0;
 
-    // How many columns fit at the current width?
-    const cols = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
-    const rows = Math.ceil(count / cols);
-    // Each row occupies (BLOCK_H + GAP); add top/bottom padding
-    const requiredH = rows * (BLOCK_H + GAP) + GAP * 2;
+    const cols   = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
+    const rowH   = BLOCK_H + GAP;
 
-    canvas.height = Math.max(requiredH, 200);
+    const floatRows  = Math.ceil(maxLift / cols);
+    const groundRows = Math.ceil(total   / cols);
 
-    // Stretch the wrapper to match so it isn't clipped by a fixed CSS height
+    // Derived directly from the anchor expressions in spawnBlocks /
+    // updateBlockTargets so the two zones are guaranteed not to overlap:
+    //   float bottom edge  = GAP + floatRows * rowH
+    //   ground top edge    = canvas.height - GAP - groundRows * rowH
+    //   required gap between them = rowH
+    const ZONE_GAP    = rowH;
+    canvas.height = Math.max(
+      GAP + floatRows * rowH + ZONE_GAP + groundRows * rowH + GAP,
+      200
+    );
+
     const wrapper = canvas.closest(".skills-canvas-wrapper");
     if (wrapper) wrapper.style.height = canvas.height + "px";
   }
@@ -494,7 +507,7 @@ const SkillsBubbles = (() => {
   // EVENTS
   // ══════════════════════════════════════════════════════════════════════════
 
-  function bindEvents(skillsData, projectsData) {
+  function bindEvents(skillsData, projectsData, maxLiftCount) {
     canvas.addEventListener("click", e => {
       const rect = canvas.getBoundingClientRect();
       const scaleX = canvas.width  / rect.width;
@@ -562,7 +575,7 @@ const SkillsBubbles = (() => {
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        resizeCanvas(skillsData.length);
+        resizeCanvas(skillsData.length, maxLiftCount);
         spawnBlocks(skillsData);
         updateBlockTargets();
       }, 150);
