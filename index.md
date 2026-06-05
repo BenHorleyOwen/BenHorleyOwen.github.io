@@ -22,7 +22,7 @@ Select a project! some are indexes with their own subprojects. Index projects ta
 .skills-canvas-wrapper {
   display: flex;
   min-height: 200px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border);
   margin: 1.5rem 0;
   background: var(--surface);
