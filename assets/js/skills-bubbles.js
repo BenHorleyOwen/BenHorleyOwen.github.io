@@ -89,7 +89,7 @@ const SkillsBubbles = (() => {
     window._sbProjectsData = projectsData;
 
     buildProjectBar(projectsData);
-    resizeCanvas();
+    resizeCanvas(skillsData.length);
     spawnBlocks(skillsData);
     bindEvents(skillsData, projectsData);
     showPanelDefault();
@@ -191,16 +191,29 @@ const SkillsBubbles = (() => {
 
   // ══════════════════════════════════════════════════════════════════════════
   // CANVAS SIZING
+  // Height is calculated from the number of skills so every block fits.
+  // Pass skillCount to compute the required rows; omit to reflow using the
+  // current block count (used by the resize-event handler).
   // ══════════════════════════════════════════════════════════════════════════
 
-  function resizeCanvas() {
+  function resizeCanvas(skillCount) {
     const area   = canvas.parentElement;
     canvas.width = area.clientWidth || 600;
-    // Height is set to fill the wrapper; wrapper has explicit min-height in CSS.
-    // Read it from the wrapper, not the canvas area which may be 0 before paint.
+
+    // Resolve how many skills we're sizing for
+    const count = skillCount != null ? skillCount : blocks.length;
+
+    // How many columns fit at the current width?
+    const cols = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
+    const rows = Math.ceil(count / cols);
+    // Each row occupies (BLOCK_H + GAP); add top/bottom padding
+    const requiredH = rows * (BLOCK_H + GAP) + GAP * 2;
+
+    canvas.height = Math.max(requiredH, 200);
+
+    // Stretch the wrapper to match so it isn't clipped by a fixed CSS height
     const wrapper = canvas.closest(".skills-canvas-wrapper");
-    const wrapH   = wrapper ? wrapper.clientHeight : 0;
-    canvas.height = Math.max(380, wrapH || canvas.width * 0.55);
+    if (wrapper) wrapper.style.height = canvas.height + "px";
   }
 
 
@@ -549,7 +562,7 @@ const SkillsBubbles = (() => {
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        resizeCanvas();
+        resizeCanvas(skillsData.length);
         spawnBlocks(skillsData);
         updateBlockTargets();
       }, 150);

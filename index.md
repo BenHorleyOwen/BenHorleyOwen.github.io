@@ -21,7 +21,7 @@ Select a project! some are indexes with their own subprojects.<br>
 <style>
 .skills-canvas-wrapper {
   display: flex;
-  height: 420px;
+  min-height: 200px;
   overflow: hidden;
   border: 1px solid var(--border);
   margin: 1.5rem 0;
@@ -50,4 +50,3 @@ canvas#skills-canvas { display: block; width: 100%; height: 100%; }
   const yaml = {{ site.data.projects | jsonify }};
   SkillsBubbles.init(yaml);
 </script>
-
