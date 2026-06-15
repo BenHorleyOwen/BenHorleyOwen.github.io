@@ -1,11 +1,63 @@
 projects:
 
-  - name: Portfolio Website
-    priority: 2
-    repo: https://benhorleyowen.github.io
-    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
+  - name: Gestural Mouse
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/Gestural-Mouse
+    skills: [OpenCV, Mediapipe, Python]
     description: |
-      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
+      a fun, small, subproject to control my computer across my room
+
+  - name: Building a Shell
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
+    skills: [Javascript, Shell, NodeJS, Event-driven architecture, CLI Development, POSIX behaviour, REPL, File Handling, VS Code, Refactoring, Software Architecture]
+    description: |
+      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
+
+  - name: Maps manhunt
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Map
+    skills: [NodeJS, JavaScript, HTML, Kubernetes, WebSocket Communication, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker, Real Time Systems, Interactive Mapping, Geolocation APIs, Container Networking]
+    description: |
+      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
+
+  - name: Compose Templates
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Compose-Templates
+    skills: [Github Submodules, Organisation, CI/CD, Github Actions, Version Control, Service Orchestration, Developer Tooling, Docker Compose]
+    description: |
+      this is an index of compose stacks that I have either set up as templates or for quick deploy across my devices. 
+      Contains a workflow to automatically hyperlink the submodules and any future additions.
+    subprojects: [API Template, Node Template, Jekyll Host, Database Node]
+
+  - name: API Template
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/API-template
+    skills: [Docker, Python, FastAPI, Networking, Service Architecture, Full Stack Development]
+    description: |
+      This project is a quick compose file made during a hackathon to quickly initialise a database and API serving container network on the local network.
+
+  - name: Node Template
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Node-Template
+    skills: [NodeJS, APIs, Docker, Networking, Full Stack Development]
+    description: |
+      This compose file mounts a given directory and serves it as a node js web server.
+
+  - name: Jekyll Host
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Jekyll-Host
+    skills: [Jekyll, Dev Environments, Docker, Deployment, Static Site Hosting, Development Environments, Self Hosting]
+    description: |
+      This compose file builds a mounted directory and serves the webpage locally. 
+      This was utilised as a local development environment while i was designing my portfolio webpage.
+
+  - name: Database Node
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Database-Node
+    skills: [NodeJS, Python, Docker, SQL, Networking, Service Orchestration, Database Integration, Full stack Development]
+    description: |
+      Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
 
   - name: Leetcode Automation
     priority: 3
@@ -14,6 +66,35 @@ projects:
     description: |
       This is an implementation of a GitHub action written by dos-m0nk3y to collect leetcode submissions, using a modified version by HoneyHabib for language support.
       The automation is used to gather the leetcode challenges I have completed with the accepted submission.
+
+  - name: Portfolio Website
+    priority: 2
+    repo: https://benhorleyowen.github.io
+    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
+    description: |
+      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
+
+  - name: Secure Network Configuration Lab
+    priority: 2
+    repo: null
+    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration, ]
+    description: |
+      A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
+
+  - name: incremental journal backup
+    priority: 1
+    repo: https://github.com/BenHorleyOwen/Incremental-Journal-Backup
+    skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker, Incremental Backups, Data Synchronisation, Workflow Automation]
+    description: |
+      I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
+
+  - name: Automated Portfolio Deployment
+    priority: 1
+    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
+    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, Scripting, Python, Github Actions, Error Handling, Refactoring, Repository Automation, Metadata Management, Static Site Generation]
+    description: |
+      The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
+      Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
 
   - name: Modular Workspace
     priority: 2
@@ -36,13 +117,6 @@ projects:
     skills: [Data Architecture, Metascripting, Python, Data Integrity, CIA Triad, Metadata Management]
     description: |
       Metascript which makes all my project information compliant with obsidians list property type rather than CSV text fields
-
-  - name: incremental journal backup
-    priority: 1
-    repo: https://github.com/BenHorleyOwen/Incremental-Journal-Backup
-    skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker, Incremental Backups, Data Synchronisation, Workflow Automation]
-    description: |
-      I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
 
   - name: HomeLab setup
     priority: 3
@@ -94,21 +168,6 @@ projects:
     description: |
       I created a compose for my home lab which hosts my obsidian notes over my local network.
 
-  - name: Automated Portfolio Deployment
-    priority: 1
-    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
-    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, Scripting, Python, Github Actions, Error Handling, Refactoring, Repository Automation, Metadata Management, Static Site Generation]
-    description: |
-      The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
-      Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
-
-  - name: Building a Shell
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
-    skills: [Javascript, Shell]
-    description: |
-      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
-
   - name: Music Index
     priority: 2
     repo: https://github.com/BenHorleyOwen/Music-Index
@@ -130,62 +189,3 @@ projects:
     skills: [APIs, Docker, Networking, NodeJS, HTML, Express.js, Web Applications, Media Automation]
     description: |
       personal copycat of [Jbrew's robot karaoke player](https://github.com/jbrew/robot-karaoke-player); "a web player for karaoke songs with procedurally generated replacement lyrics". Modified to interact with my music server as a backend. Currently, the project only works as regular karaoke.
-
-  - name: Maps manhunt
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Map
-    skills: [NodeJS, JavaScript, HTML, Kubernetes, WebSocket Communication, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker, Real Time Systems, Interactive Mapping, Geolocation APIs, Container Networking]
-    description: |
-      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
-
-  - name: Compose Templates
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Compose-Templates
-    skills: [Github Submodules, Organisation, CI/CD, Github Actions, Version Control, Service Orchestration, Developer Tooling, Docker Compose]
-    description: |
-      this is an index of compose stacks that I have either set up as templates or for quick deploy across my devices. 
-      Contains a workflow to automatically hyperlink the submodules and any future additions.
-    subprojects: [API Template, Node Template, Jekyll Host, Database Node]
-
-  - name: API Template
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/API-template
-    skills: [Docker, Python, FastAPI, Networking, Service Architecture, Full Stack Development]
-    description: |
-      This project is a quick compose file made during a hackathon to quickly initialise a database and API serving container network on the local network.
-
-  - name: Node Template
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Node-Template
-    skills: [NodeJS, APIs, Docker, Networking, Full Stack Development]
-    description: |
-      This compose file mounts a given directory and serves it as a node js web server.
-
-  - name: Jekyll Host
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Jekyll-Host
-    skills: [Jekyll, Dev Environments, Docker, Deployment, Static Site Hosting, Development Environments, Self Hosting]
-    description: |
-      This compose file builds a mounted directory and serves the webpage locally. 
-      This was utilised as a local development environment while i was designing my portfolio webpage.
-
-  - name: Database Node
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Database-Node
-    skills: [NodeJS, Python, Docker, SQL, Networking, Service Orchestration, Database Integration, Full stack Development]
-    description: |
-      Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
-
-  - name: Secure Network Configuration Lab
-    priority: 2
-    repo: null
-    skills: [Active Directory, Authentication, Networking, Apache, Sandboxing, Report Writing, Samba, Linux PAM, Unix Administration, Access Control, Domain Administration, ]
-    description: |
-      A collection of virtual machines which were networked as a mock school system with control access configuration on users and groups.
-
-  - name: Gestural Mouse
-    priority: 3
-    repo: https://github.com/BenHorleyOwen/Gestural-Mouse
-    skills: [OpenCV, Mediapipe, Python]
-    description: |
-      a fun, small, subproject to control my computer across my room
