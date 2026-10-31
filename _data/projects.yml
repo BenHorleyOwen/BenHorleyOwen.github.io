@@ -1,5 +1,12 @@
 projects:
 
+  - name: Portfolio Website
+    priority: 2
+    repo: https://benhorleyowen.github.io
+    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
+    description: |
+      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
+
   - name: Gestural Mouse
     priority: 3
     repo: https://github.com/BenHorleyOwen/Gestural-Mouse
@@ -7,19 +14,13 @@ projects:
     description: |
       a fun, small, subproject to control my computer across my room
 
-  - name: Building a Shell
-    priority: 3
-    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
-    skills: [Javascript, Shell, NodeJS, Event-driven architecture, CLI Development, POSIX behaviour, REPL, File Handling, VS Code, Refactoring, Software Architecture]
+  - name: Automated Portfolio Deployment
+    priority: 1
+    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
+    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, Scripting, Python, Github Actions, Error Handling, Refactoring, Repository Automation, Metadata Management, Static Site Generation]
     description: |
-      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
-
-  - name: Maps manhunt
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Map
-    skills: [NodeJS, JavaScript, HTML, Kubernetes, WebSocket Communication, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker, Real Time Systems, Interactive Mapping, Geolocation APIs, Container Networking]
-    description: |
-      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
+      The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
+      Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
 
   - name: Compose Templates
     priority: 2
@@ -59,6 +60,13 @@ projects:
     description: |
       Orchestrates a database and a website API to access it. Repo was designed with an init.sh for fast setup. This project was developed deployed as a submodule for my submissions to [ETHOxford2026](https://github.com/BenHorleyOwen/ETH2026) and [ODI/FRC2026](https://github.com/BenHorleyOwen/ODIFRC-hackathon).
 
+  - name: Building a Shell
+    priority: 3
+    repo: https://github.com/BenHorleyOwen/codecrafters-shell-javascript
+    skills: [Javascript, Shell, NodeJS, Event-driven architecture, CLI Development, POSIX behaviour, REPL, File Handling, VS Code, Refactoring, Software Architecture]
+    description: |
+      followed a POSIX compliant shell building walkthrough to possibly gain a better depth of understanding.
+
   - name: Leetcode Automation
     priority: 3
     repo: https://github.com/BenHorleyOwen/Leetcode-Synchroniser
@@ -66,13 +74,6 @@ projects:
     description: |
       This is an implementation of a GitHub action written by dos-m0nk3y to collect leetcode submissions, using a modified version by HoneyHabib for language support.
       The automation is used to gather the leetcode challenges I have completed with the accepted submission.
-
-  - name: Portfolio Website
-    priority: 2
-    repo: https://benhorleyowen.github.io
-    skills: [Automation, Github Actions, JavaScript, File Handling, Scripting, Organisation, Ruby, Jekyll, Version Control, Dev Environments, CI/CD, Full Stack Development]
-    description: |
-      webpage deployed on github pages, contains a collection of my projects and skills which is [automatically generated](https://github.com/BenHorleyOwen/Automated-portfolio-deployment) from my personal notes when I back them up. Locally tested with one of my [Compose Templates](https://github.com/BenHorleyOwen/Compose-Templates) as a dev environment.
 
   - name: Secure Network Configuration Lab
     priority: 2
@@ -87,36 +88,6 @@ projects:
     skills: [APIs, Backups, Automation, Scripting, Python, Version Control, Docker, Incremental Backups, Data Synchronisation, Workflow Automation]
     description: |
       I modified a tool which takes full backups of the service I use for journaling and instead made it work by taking partial backups and updating the previously created HTML documents. The modified tool uses the API put up by the service to take the last entry ID when run
-
-  - name: Automated Portfolio Deployment
-    priority: 1
-    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment
-    skills: [Version Control, Automation, File handling, Organisation, OOP, CI/CD, OAuth, Resuable Workflows, Scripting, Python, Github Actions, Error Handling, Refactoring, Repository Automation, Metadata Management, Static Site Generation]
-    description: |
-      The goal of this project is to automatically maintain all my public project information easily when I backup my collection of notes. 
-      Project information and indexes containing subprojects can both be displayed, as well as an abstract structure made with OOP to allow for future customisable tagged sections.
-
-  - name: Modular Workspace
-    priority: 2
-    repo: null
-    skills: [Organisation, Workflow Design, Information Architecture, Knowledge Management]
-    description: |
-      This is a collection of small projects and modifications made to my obsidian workspace to improve my own workspace and flow.
-    subprojects: [Applications bases, Fixing my skills list]
-
-  - name: Applications bases
-    priority: 2
-    repo: null
-    skills: [Organisation, Data Architecture, Information Architecture, Workflow Automation]
-    description: |
-      I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
-
-  - name: Fixing my skills list
-    priority: 2
-    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment/blob/main/.github/scripts/convertFrontmatter.py
-    skills: [Data Architecture, Metascripting, Python, Data Integrity, CIA Triad, Metadata Management]
-    description: |
-      Metascript which makes all my project information compliant with obsidians list property type rather than CSV text fields
 
   - name: HomeLab setup
     priority: 3
@@ -167,6 +138,42 @@ projects:
     skills: [Organisation, Docker Compose, Networking, Problem solving, Self Hosting, local network services]
     description: |
       I created a compose for my home lab which hosts my obsidian notes over my local network.
+
+  - name: allumette soufrée
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/StyleRepo
+    skills: [GitOps, Architecture, Design]
+    description: |
+      Stylistic design project dedicated to looking into the elements behind an old French matchbox; became a style source repo for my portfolio.
+
+  - name: Maps manhunt
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Map
+    skills: [NodeJS, JavaScript, HTML, Kubernetes, WebSocket Communication, Networking, Express.js, Leaftlet, Problem Solving, Authentication, Docker, Real Time Systems, Interactive Mapping, Geolocation APIs, Container Networking]
+    description: |
+      A largescale manhunt game made for my friends which runs a containerised NodeJS webserver to maintain a synced map between participants using browser GPS calls to websockets.
+
+  - name: Modular Workspace
+    priority: 2
+    repo: null
+    skills: [Organisation, Workflow Design, Information Architecture, Knowledge Management]
+    description: |
+      This is a collection of small projects and modifications made to my obsidian workspace to improve my own workspace and flow.
+    subprojects: [Applications bases, Fixing my skills list]
+
+  - name: Applications bases
+    priority: 2
+    repo: null
+    skills: [Organisation, Data Architecture, Information Architecture, Workflow Automation]
+    description: |
+      I set up a local database which automatically creates entries and organises them in a frontend view for my application process.
+
+  - name: Fixing my skills list
+    priority: 2
+    repo: https://github.com/BenHorleyOwen/Automated-portfolio-deployment/blob/main/.github/scripts/convertFrontmatter.py
+    skills: [Data Architecture, Metascripting, Python, Data Integrity, CIA Triad, Metadata Management]
+    description: |
+      Metascript which makes all my project information compliant with obsidians list property type rather than CSV text fields
 
   - name: Music Index
     priority: 2
