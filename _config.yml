@@ -3,6 +3,10 @@ description: "Security Engineer | DevSecOps Engineer | Infrastructure Security |
 baseurl: ""
 url: "https://github.com/BenHorleyOwen"
 
+# Style theme: name of a file in the style guide repo's _data/themes/ (no .yml)
+# Options: dark-editorial (your original look), matchbox
+style_theme: dark-editorial
+
 # Build settings
 markdown: kramdown
 plugins:
@@ -29,4 +33,4 @@ exclude:
   - Gemfile.lock
   - README.md
   - node_modules
-
+  - .style-guide

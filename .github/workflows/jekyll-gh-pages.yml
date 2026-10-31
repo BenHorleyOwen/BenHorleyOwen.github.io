@@ -28,6 +28,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # --- Style guide ingest -------------------------------------------
+      - name: Fetch style guide
+        uses: actions/checkout@v4
+        with:
+          repository: BenHorleyOwen/style-guide   # <- change to your style repo
+          ref: main                               # or a tag, e.g. v1.0.0, to pin
+          path: .style-guide
+          # token: ${{ secrets.STYLE_GUIDE_PAT }} # only needed if that repo is private
+
+      - name: Ingest style tokens
+        run: |
+          mkdir -p _data/themes assets/css
+          cp .style-guide/_data/themes/*.yml _data/themes/
+          cp .style-guide/assets/css/tokens.css assets/css/tokens.css
+      # -------------------------------------------------------------------
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll

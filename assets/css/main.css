@@ -1,34 +1,50 @@
 /* ============================================================
-   PORTFOLIO — Dark editorial
-   Syne (display) · Lora (body) · Space Mono (mono)
+   PORTFOLIO
+   Colours, fonts and corner/title shape come from the active
+   style theme (style_theme in _config.yml), built into
+   tokens.css. tokens.css must be linked BEFORE this file.
    ============================================================ */
 
 :root {
-  --bg:         #0a0a0f;
-  --surface:    #111118;
-  --surface2:   #18181f;
-  --border:     #2a2a35;
-  --text:       #B2ABCA;
-  --text-dim:   #666680;
-  --text-muted: #3a3a50;
-  --accent:     #e8f060;
-  --accent2:    #a0c8ff;
+  /* Old variable names mapped onto theme roles, so any layout,
+     page or script still using var(--bg), var(--accent) etc.
+     keeps working. Fonts (--font-display/body/mono) come
+     straight from tokens.css. */
+  --bg:         var(--color-page-bg);
+  --surface:    var(--color-surface);
+  --surface2:   var(--color-surface-alt);
+  --border:     var(--color-outline);
+  --text:       var(--color-text);
+  --text-dim:   var(--color-text-dim);
+  --text-muted: var(--color-text-muted);
+  --accent:     var(--color-accent);
+  --accent2:    var(--color-link);
 
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'Lora', serif;
-  --font-mono:    'Space Mono', monospace;
-
+  /* Layout (not themed) */
   --nav-h: 64px;
   --max-w: 1200px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}
+
+/* Page scrollbar (Safari / older Chromium) */
+::-webkit-scrollbar       { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-scrollbar-track); }
+::-webkit-scrollbar-thumb {
+  background:    var(--color-scrollbar-thumb);
+  border-radius: var(--radius);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-scrollbar-thumb-hover); }
 
 body {
-  background:  var(--bg);
-  color:       var(--text);
+  background:  var(--color-page-bg);
+  color:       var(--color-text);
   font-family: var(--font-body);
   font-size:   14px;
   line-height: 1.7;
@@ -73,8 +89,8 @@ section {
   justify-content: space-between;
   padding:         0 2rem;
   z-index:         100;
-  border-bottom:   1px solid var(--border);
-  background:      rgba(10,10,15,0.85);
+  border-bottom:   1px solid var(--color-detail);
+  background:      var(--color-nav-bg);
   backdrop-filter: blur(12px);
 }
 
@@ -82,54 +98,72 @@ section {
   font-family:     var(--font-display);
   font-weight:     800;
   font-size:       1.2rem;
-  color:           var(--accent);
+  color:           var(--color-accent);
   text-decoration: none;
   letter-spacing:  -0.02em;
 }
 
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a {
-  color:           var(--text-dim);
+  color:           var(--color-nav-text);
   text-decoration: none;
   font-size:       0.8rem;
   letter-spacing:  0.1em;
   text-transform:  uppercase;
-  transition:      color 0.2s;
+  transition:      color 0.2s, background 0.2s;
+  /* padding + equal negative margin: room for the hover fill without moving the layout */
+  padding:         0.3rem 0.6rem;
+  margin:          -0.3rem -0.6rem;
+  border-radius:   var(--radius);
 }
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover {
+  color:      var(--color-nav-text-hover);
+  background: var(--color-nav-hover-bg);
+}
 
 /* ---- FOOTER ---- */
 .site-footer {
-  border-top:      1px solid var(--border);
+  border-top:      1px solid var(--color-detail);
   display:         flex;
   justify-content: space-between;
   align-items:     center;
   padding:         1.5rem 2rem;
   font-size:       0.72rem;
-  color:           var(--text-muted);
+  color:           var(--color-text-muted);
   letter-spacing:  0.1em;
 }
 .site-footer a {
-  color:           var(--text-muted);
+  color:           var(--color-text-muted);
   text-decoration: none;
   transition:      color 0.2s;
 }
-.site-footer a:hover { color: var(--accent); }
+.site-footer a:hover { color: var(--color-accent); }
 
 /* ---- PROSE (index.md rendered content) ---- */
 main h1, main h2, main h3 {
   font-family:    var(--font-display);
   font-weight:    700;
   letter-spacing: -0.02em;
-  color:          var(--text);
+  color:          var(--color-text);
   margin:         2rem 0 0.75rem;
 }
 main h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
 main h3 { font-size: 1.1rem; }
-main p  { color: var(--text-dim); margin-bottom: 0.75rem; }
-main a, main a:visited { color: var(--accent2); text-decoration: none; }
+
+/* Titles sit on a box. The theme decides if the box is visible
+   (dark-editorial: transparent, no padding; matchbox: slate-blue box). */
+main h1, main h2 {
+  background:    var(--color-title-bg);
+  color:         var(--color-title-text);
+  padding:       var(--title-pad);
+  border-radius: var(--radius);
+  width:         fit-content;
+}
+
+main p  { color: var(--color-text-dim); margin-bottom: 0.75rem; }
+main a, main a:visited { color: var(--color-link); text-decoration: none; }
 main a:hover { text-decoration: underline; }
-main strong { color: var(--text); font-weight: 700; }
+main strong { color: var(--color-text); font-weight: 700; }
 
 /* ---- SKILLS WIDGET ---- */
 .skills-project-bar { margin-bottom: 0.5rem; }
@@ -138,23 +172,23 @@ main strong { color: var(--text); font-weight: 700; }
   display:    flex;
   height:     420px;
   overflow:   hidden;
-  border:     1px solid var(--border);
+  border:     1px solid var(--color-outline);
   margin:     1.5rem 0;
-  background: var(--surface);
+  background: var(--color-surface);
 }
 
 .skills-project-panel {
   width:       200px;
   min-width:   200px;
   padding:     1rem;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid var(--color-outline);
   overflow:    hidden;
   font-family: var(--font-body);
   font-size:   0.82rem;
   display:     flex;
   flex-direction: column;
   gap:         0.5rem;
-  color:       var(--text);
+  color:       var(--color-text);
 }
 
 .skills-canvas-area          { flex: 1; min-width: 0; }
@@ -162,15 +196,15 @@ canvas#skills-canvas         { display: block; width: 100%; height: 100%; }
 
 .sb-desc {
   scrollbar-width: thin;
-  scrollbar-color: rgba(178,171,202,0.15) transparent;
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
 }
 .sb-desc::-webkit-scrollbar       { width: 3px; }
 .sb-desc::-webkit-scrollbar-track { background: transparent; }
 .sb-desc::-webkit-scrollbar-thumb {
-  background:    rgba(178,171,202,0.2);
+  background:    var(--color-scrollbar-thumb);
   border-radius: 2px;
 }
-.sb-desc::-webkit-scrollbar-thumb:hover { background: rgba(178,171,202,0.4); }
+.sb-desc::-webkit-scrollbar-thumb:hover { background: var(--color-scrollbar-thumb-hover); }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 600px) {

@@ -31,17 +31,12 @@
  * .skills-canvas-wrapper if one doesn't already exist.
  *
  * THEMING
- *   All colours are resolved from CSS custom properties at paint time so the
- *   component inherits your page's light/dark mode automatically.
+ *   All colours and fonts are resolved from CSS custom properties at paint
+ *   time, so the component follows the active style theme (tokens.css).
  *   The properties used are:
- *     --color-background-primary   block fill / panel bg
- *     --color-background-secondary dimmed block fill / wrapper bg
- *     --color-text-primary         active block fill + tab active bg
- *     --color-text-secondary       default block text
- *     --color-text-tertiary        placeholder + dimmed text
- *     --color-border-tertiary      subtle borders
- *     --color-border-secondary     default block stroke
- *     --font-sans                  label typeface
+ *     --text, --bg, --border, --accent  legacy aliases defined in main.css
+ *     --color-block-bg                  inactive block fill (theme role "block-bg")
+ *     --font-mono, --font-body          label typefaces
  */
 
 const SkillsBubbles = (() => {
@@ -212,33 +207,38 @@ const SkillsBubbles = (() => {
     return Math.max(GAP + floatRows * rowH + zoneGap + gndRows * rowH + GAP, 200);
   }
 
+  // Set canvas + wrapper to the exact height needed for liftCount lifted blocks.
+  // Canvas is resized immediately (no transition) so ground block positions are
+  // always anchored to the real canvas bottom. The wrapper gets a CSS transition
+  // so it slides to match. We then respawn ground positions for the new height.
   function resizeCanvas(liftCount) {
     const area   = canvas.parentElement;
     canvas.width = area.clientWidth || 600;
-    canvas.height = calcHeight(liftCount || 0);
+    const h      = calcHeight(liftCount || 0);
+    canvas.height = h;
     const wrapper = canvas.closest(".skills-canvas-wrapper");
     if (wrapper) {
       wrapper.style.transition = "none";
-      wrapper.style.height     = canvas.height + "px";
+      wrapper.style.height     = h + "px";
     }
   }
 
-  function animateToHeight(liftCount) {
-    const targetH = calcHeight(liftCount);
-    if (targetH === canvas.height) return;
-    const wrapper = canvas.closest(".skills-canvas-wrapper");
-    if (wrapper) {
-      wrapper.style.transition = "height 0.35s ease";
-      wrapper.style.height     = targetH + "px";
-    }
-    canvas.height = targetH;
+  function setHeight(liftCount, animate) {
+    const h       = calcHeight(liftCount);
+    if (h === canvas.height) return;
+    canvas.height  = h;
+    // Re-anchor ground positions to new canvas bottom
     const cols   = Math.max(1, Math.floor((canvas.width + GAP) / (BLOCK_W + GAP)));
     const floorY = canvas.height - BLOCK_H / 2 - GAP;
     blocks.forEach((b, i) => {
       const row = Math.floor(i / cols);
       b.groundY = floorY - row * (BLOCK_H + GAP);
-      b.groundX = GAP + (i % cols) * (BLOCK_W + GAP) + BLOCK_W / 2;
     });
+    const wrapper = canvas.closest(".skills-canvas-wrapper");
+    if (wrapper) {
+      wrapper.style.transition = animate ? "height 0.35s ease" : "none";
+      wrapper.style.height     = h + "px";
+    }
   }
 
 
@@ -296,7 +296,7 @@ const SkillsBubbles = (() => {
       return false;
     });
 
-    animateToHeight(lifted.length);
+    setHeight(lifted.length, true);
 
     lifted.forEach((b, i) => {
       const col  = i % cols;
@@ -336,7 +336,7 @@ const SkillsBubbles = (() => {
     const accent = getCSSVar("--accent", "#e8f060");
 
     // Active: accent fill, bg-coloured label. Normal: faint tint + full text. Dimmed: faded.
-    const fill   = isActive ? accent                     : "rgba(178,171,202,0.08)";
+    const fill   = isActive ? accent                     : getCSSVar("--color-block-bg", "rgba(178,171,202,0.08)");
     const stroke = isActive ? accent                     : border;
     const textC  = isActive ? bg                        : text;
     if (isDimmed) {
@@ -490,7 +490,7 @@ const SkillsBubbles = (() => {
   function showPanelSkill(b) {
     const projectTags = b.projects.length
       ? b.projects.map(p => tag(p)).join(" ")
-      : `<span style="font-size:12px;color:var(--color-text-tertiary,#aaa);">no linked projects</span>`;
+      : `<span style="font-size:12px;color:inherit;opacity:0.6;">no linked projects</span>`;
 
     panel.innerHTML = `
       <p style="font-size:14px;font-weight:600;color:inherit;margin:0 0 4px;">${b.name}</p>
@@ -513,7 +513,7 @@ const SkillsBubbles = (() => {
     selectedProject = null;
     selectedSkill   = null;
     updateTabStates();
-    animateToHeight(0);
+    setHeight(0, true);
     updateBlockTargets();
   }
 
