@@ -2,7 +2,10 @@ name: "Ben Horley-Owen"
 title: "Associate DevOps Engineer"
 tagline: "I have a lot of interests and things I want to make."
 bio: >
-  I am an Associate DevOps engineer with a passion for making my life easier through automation, starting with this website.
+  Professional Devops engineer with a First-Class Honours in Cyber Security and Digital forensics. I have a passion for automation and infrastructure which presents itself in the personal projects I have displayed, including the method by which I display them, and my professional career.
+  In said career, I have worked on extending organisation wide critical platform testing infrastructure, supplanted the deployment method for my companies platform in google, azure and AWS environments, and effectively triaged a wide array of pipelines to maintain stability in day to day, all examples only from my first few months.
+  Outside of work I also have a passion for creating anything that interests me. This includes a home-lab where I deploy my own reciple manager and music server (which Ive made a template for quick deployment) which I extended with a kareoke interface; all so I could turn anyones laptop at a party into a quick kareoke machine which can find and serve almost any song.  
+  This all led to me teaching myself the aspects of devops and led me to where I am today. 
 
 location: "London, UK"
 email: "benhorleyowen@outlook.com"
