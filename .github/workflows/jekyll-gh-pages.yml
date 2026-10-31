@@ -33,7 +33,7 @@ jobs:
       - name: Fetch style guide
         uses: actions/checkout@v4
         with:
-          repository: BenHorleyOwen/style-guide   # <- change to your style repo
+          repository: BenHorleyOwen/StyleRepo   # <- change to your style repo
           ref: main                               # or a tag, e.g. v1.0.0, to pin
           path: .style-guide
           # token: ${{ secrets.STYLE_GUIDE_PAT }} # only needed if that repo is private
